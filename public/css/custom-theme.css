@@ -1,0 +1,57 @@
+.x-navigation.x-navigation-horizontal {
+    background: #fff !important;
+    box-shadow: 0 3px 6px rgb(0 0 0 / 16%), 0 3px 6px rgb(0 0 0 / 23%);
+}
+
+.x-navigation.x-navigation-horizontal > li > a .fa, .x-navigation.x-navigation-horizontal > li > a .glyphicon {
+    color: #1b1e24 !important;
+}
+
+.x-navigation .xn-search input {
+    color: #f9f9f9 !important;
+    border: 1px solid #eff0f1;
+    padding: 10px 10px 10px 70px;
+    border-radius: 0px;
+    background-color: #f6f7fb;
+    width: 250px !important;
+    text-align: left !important;
+}
+
+
+.breadcrumb {
+    background: transparent !important;
+    padding: 15px 15px 7px;
+}
+
+.x-navigation.x-navigation-horizontal > li > a:hover {
+    background: #ececec !important;
+}
+
+.x-navigation {
+    background: #1b1e24 !important;
+}
+.x-navigation > li.xn-logo > a:first-child {
+    background: #1b1e24 !important;
+}
+
+.page-wrapper .page-body-wrapper .page-sidebar {
+    background: #1b1e24 !important;
+}
+
+
+.x-navigation li > a {
+    border-bottom: unset !important;
+    color: #dad9d9 !important;
+}
+
+.x-navigation li > a .fa, .x-navigation li > a .glyphicon {
+    color: #dad9d9 !important;
+}
+
+.x-navigation li.active > a {
+    background: #131212;
+}
+
+div.profile {
+    display: none !important;
+}

@@ -1,0 +1,55 @@
+.label-borok{
+    position: relative !important;
+    top: -15px !important;
+    right: -10px !important;
+    border-radius: 10px;
+    padding: 3px 8px;
+    animation: blinker 2s linear infinite;
+}
+@keyframes blinker {
+
+    50% {
+
+      opacity: 0.3;
+
+    }
+
+  }
+
+select.input-sm{
+    line-height: normal;
+}
+.dataTables_wrapper .dataTables_paginate .paginate_button{
+    padding: 0.5em 0em !important;
+}
+.lihatbukti :hover{
+    cursor: pointer;
+}
+.lihatbukti{
+    text-decoration: none;
+}
+#yadcf-filter--data-peminjamanvalidasi-5{
+    width: 80px;
+}
+#yadcf-filter--data-peminjamanmonitoring-4{
+    width: 80px;
+}
+
+#yadcf-filter--data-pengembalianvalidasi-4{
+    width: 80px;
+}
+/*
+.page-container .page-content{
+    padding-top: 10px;
+    margin-left: 0px !important;
+    z-index: 11 !important;
+}
+.panel-heading, .x-navigation, .breadcrumb{
+display: none !important;
+}
+html{
+    overflow: hidden;
+} */
+
+
+
