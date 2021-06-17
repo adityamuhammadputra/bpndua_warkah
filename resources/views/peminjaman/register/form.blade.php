@@ -103,7 +103,7 @@
                         <th width="20%">Posisi Warkah</th>
                         <th width="13%">Desa, Kecamatan <input type="checkbox" id="samakan-desa"></th>
                         <th width="5%" class="text-right">
-                            <button type="button" name="add" class="btn btn-success add btn-sm"><i class="fa fa-plus text-white"></i></button>
+                            <button type="button" name="add" class="btn btn-success add btn-sm pull-right"><i class="fa fa-plus text-white"></i></button>
                             <input type="text" required class="hidden-required">
                         </th>
                     </tr>

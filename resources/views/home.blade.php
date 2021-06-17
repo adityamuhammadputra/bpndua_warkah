@@ -45,17 +45,17 @@
             <div class="widget widget-default widget-carousel">
                 <div class="owl-carousel" id="owl-example">
                     <div>
-                        <div class="widget-title">Peminjaman Buku Tanah</div>
+                        <div class="widget-title">Peminjaman Roya</div>
                         <div class="widget-subtitle">{{ $data['bukutanah']['min_tanggal'] }} s/d {{ $data['bukutanah']['max_tanggal'] }}</div>
                         <div class="widget-int">{{ $data['bukutanah']['total'] }}</div>
                     </div>
                     <div>
-                        <div class="widget-title">Peminjaman Surat Ukur</div>
+                        <div class="widget-title">Peminjaman Rutin</div>
                         <div class="widget-subtitle">{{ $data['suratukur']['min_tanggal'] }} s/d {{ $data['suratukur']['max_tanggal'] }}</div>
                         <div class="widget-int">{{ $data['suratukur']['total'] }}</div>
                     </div>
                     <div>
-                        <div class="widget-title">Peminjaman Warkah</div>
+                        <div class="widget-title">Peminjaman PTSL</div>
                         <div class="widget-subtitle">{{ $data['warkah']['min_tanggal'] }} s/d {{ $data['warkah']['max_tanggal'] }}</div>
                         <div class="widget-int">{{ $data['warkah']['total'] }}</div>
                     </div>
