@@ -141,7 +141,7 @@
                         </li>
 
                         <li class="xn-icon-button pull-right">
-                            <a href="#"><span class="fa fa-desktop"></span></a>
+                            <a href="#" class="full-screen"><span class="fa fa-desktop"></span></a>
                         </li>
                     </ul>
                 </div>
@@ -333,6 +333,36 @@
             "hideEasing": "linear",
             "showMethod": "fadeIn",
             "hideMethod": "fadeOut"
+        }
+
+        $('.full-screen').on('click', function(){
+            toggleFullscreen();
+        })
+
+        function toggleFullscreen(elem) {
+            elem = elem || document.documentElement;
+            if (!document.fullscreenElement && !document.mozFullScreenElement &&
+                !document.webkitFullscreenElement && !document.msFullscreenElement) {
+                if (elem.requestFullscreen) {
+                elem.requestFullscreen();
+                } else if (elem.msRequestFullscreen) {
+                elem.msRequestFullscreen();
+                } else if (elem.mozRequestFullScreen) {
+                elem.mozRequestFullScreen();
+                } else if (elem.webkitRequestFullscreen) {
+                elem.webkitRequestFullscreen(Element.ALLOW_KEYBOARD_INPUT);
+                }
+            } else {
+                if (document.exitFullscreen) {
+                document.exitFullscreen();
+                } else if (document.msExitFullscreen) {
+                document.msExitFullscreen();
+                } else if (document.mozCancelFullScreen) {
+                document.mozCancelFullScreen();
+                } else if (document.webkitExitFullscreen) {
+                document.webkitExitFullscreen();
+                }
+            }
         }
         </script>
 

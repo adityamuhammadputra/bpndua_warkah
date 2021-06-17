@@ -11,9 +11,9 @@
         <link rel="stylesheet" type="text/css" id="theme" href="/joli/css/theme-default.css"/>
     </head>
     <body>
-        <div class="login-container">
+        <div class="login-container lightmode">
             <div class="login-box animated fadeInDown">
-                <img src="/joli/img/bpnlogo.png" width="100px;" class="img img-responsive" style="margin:auto;">
+                <img src="/joli/img/bpn-logo.png" width="100px;" class="img img-responsive" style="margin:auto;">
                 <br><br>
                 <div class="login-body">
                     <div class="login-title"><strong>Hay</strong>, Silahkan Login</div>
@@ -55,7 +55,7 @@
                 </div>
                 <div class="login-footer">
                     <div class="pull-left">
-                        &copy; 2019 H2P, Kantah Kabupaten Bogor
+                        &copy; 2021 H2P - Warkah, Kantah Kabupaten Bogor
                     </div>
                     <div class="pull-right">
                         <a href="kantahkabbogor.id">Contact Us</a>

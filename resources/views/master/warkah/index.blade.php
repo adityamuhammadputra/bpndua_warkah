@@ -52,7 +52,7 @@
                     data: 'no_warkah_tahun',
                     searchable:false
                 },
-                {data: 'jenis.name'},
+                {data: 'jenis_warkah.name'},
                 {data: 'posisi', searchable:false},
                 {data: 'desa',orderable:false, searchable:false},
                 {data: 'action',orderable:false, searchable:false},

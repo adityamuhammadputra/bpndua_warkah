@@ -56,6 +56,43 @@ class MasterController extends Controller
         return response()->json($warkahCount, 200);
     }
 
+    public function autoComplete(Request $request)
+    {
+        $query = $request->get('term','');
+
+        $datas = Warkah::where('no_warkah','LIKE','%'.$query.'%')
+                    ->orWhere('tahun','LIKE','%'.$query.'%')
+                    ->limit(10)
+                    ->get();
+
+        $data = [];
+        foreach ($datas as $d) {
+            $data[]= [
+                    'value'=>$d->no_warkah.'/'.$d->tahun.' || Jenis: '. optional($d->jenisWarkah)->name,
+                    'id' => $d->id
+            ];
+        }
+
+        if (count($data)) {
+            return $data;
+        } else {
+            return ['value'=>'Data tidak ada','id'=>''];
+        }
+    }
+
+    public function showAutoComplete(Request $request)
+    {
+        $warkah = Warkah::find($request->id);
+        $data = [
+            'no_warkah' => $warkah->no_warkah_tahun,
+            'jenis' => $warkah->jenisWarkah->name,
+            'album' => $warkah->album,
+            'posisi' => $warkah->posisi,
+            'desa' => $warkah->desa,
+            'row' => $request->row,
+        ];
+        return json_encode($data);
+    }
     public function store(Request $request)
     {
         $input = $request->except('_method', '_token', 'type');
@@ -111,7 +148,7 @@ class MasterController extends Controller
         if ($request->master == 'kegiatan') {
             $data = Kegiatan::query();
         } else if ($request->master == 'warkah') {
-            $data = Warkah::with('jenis');
+            $data = Warkah::with('jenisWarkah');
         } else {
             $data = Pegawai::with('kegiatans');
         }

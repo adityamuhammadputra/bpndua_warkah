@@ -10,7 +10,9 @@ class Warkah extends Model
     protected $appends = ['no_warkah_tahun', 'posisi'];
     protected $guarded = [];
 
-    public function jenis()
+    protected $witj = ['jenisWarkah'];
+
+    public function jenisWarkah()
     {
         return $this->belongsTo('App\JenisWarkah', 'jenis', 'id');
     }

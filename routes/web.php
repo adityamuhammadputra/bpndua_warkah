@@ -35,6 +35,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('autocompletepegawai','PeminjamanRegisterController@autoCompletePegawai');
     Route::get('autocompletepegawaishow','PeminjamanRegisterController@autoCompletePegawaiShow');
 
+
     Route::get('/peminjaman/monitoring', 'PeminjamanMonitoringController@index');
     Route::post('api/peminjamanmonitoring','PeminjamanMonitoringController@apiPeminjamanMonitoring');
 
@@ -60,6 +61,10 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('master', 'MasterController')->only('store', 'update');
     Route::delete('master/{id}/{type}', 'MasterController@destroy');
     Route::get('api/check-warkah','MasterController@checkWarkah');
+    Route::get('api/autocomplete-warkah','MasterController@autoComplete');
+    Route::get('api/show-autocomplete-warkah','MasterController@showAutoComplete');
+
+
 
     Route::get('/cetakall', 'PeminjamanRegisterController@cetakall');
 

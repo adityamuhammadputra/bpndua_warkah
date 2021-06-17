@@ -79,28 +79,30 @@
     })
 
     // tidei
-    var i=$('#item_table tr').length;
-
     $(document).ready(function(){
+        var i= $('#item_table tr').length;
         $(document).on('click', '.add', function(){
-        var html = '';
-        html += '<tr>';
-        html += '<td><input type="text" name="newno_warkah[]" id="no_warkah'+i+'" class="form-control" placeholder="Nomor Warkah"/></td>';
-        html += '<td><input type="text" name="newjenis_warkah[]" id="jenis_warkah'+i+'" class="form-control jenishak" placeholder="Jenis Warkah" /></td>';
-        html += '<td><input type="text" name="newalbum[]" id="album'+i+'" class="form-control jenishak" placeholder="Album" /></td>';
-        html += '<td><input type="text" name="newalbum[]" id="album'+i+'" class="form-control jenishak" placeholder="Jenis Warkah" /></td>';
-        html += '<td><select class="form-control desa" name="newdesa[]"  id="desa'+i+'" data-i="'+i+'"></select></td>';
-        html += '<td><button type="button" name="remove" class= "btn btn-danger remove btn-sm"><i class="fa fa-minus"></i></button></td>';
-        html += '</tr>';
-        $('#item_table').append(html);
-        desa(i, val='')
-        $(".no_seri").focus();
-        $('.hidden-required').removeAttr('required');
-        i++;
+            // var i= 1;
+            var html = '';
+            html += '<tr class="row'+i+'">';
+            html += '<td><input type="text" name="newno_warkah[]" id="no_warkah'+i+'" class="form-control autocompleteWarkah" data-row="'+i+'" placeholder="Nomor Warkah"/></td>';
+            html += '<td><input type="text" name="newjenis[]" id="jenis'+i+'" class="form-control" placeholder="Jenis Warkah" /></td>';
+            html += '<td><input type="text" name="newalbum[]" id="album'+i+'" class="form-control" placeholder="Album" /></td>';
+            html += '<td><input type="text" name="newposisi[]" id="posisi'+i+'" class="form-control" placeholder="Posisi" /></td>';
+            html += '<td><select class="form-control desa" name="newdesa[]"  id="desa'+i+'""></select></td>';
+            html += '<td width="5%" class="text-right"><button type="button" name="remove" class= "btn btn-danger remove btn-sm"><i class="fa fa-minus"></i></button></td>';
+            html += '</tr>';
+            $('#item_table').append(html);
+            desa(i, val='')
+            autoCompleteWarkah(i)
+            // $(".no_seri").focus();
+            i++;
+            $('.hidden-required').removeAttr('required');
         });
 
         $(document).on('click', '.remove', function(){
             $(this).closest('tr').remove();
+            i--;
         });
     });
     // tidei
@@ -117,6 +119,7 @@
                     $.each(res,function(key,value) {
                         $("#desa"+i).append('<option value="'+value.name+', '+value.kecamatan+'">'+value.name+', '+value.kecamatan+'</option>');
                     });
+                    console.log(val)
                     $('#desa'+i).val(val).trigger('change');
                 }else{
                     $("#desa"+i).empty();
@@ -125,6 +128,8 @@
         });
     }
 
+
+    // autocomplete
     $(document).ready(function() {
         src = "{{ url('autocompletepegawai') }}";
         $("#nama").autocomplete({
@@ -165,7 +170,62 @@
             },
             minLength: 2,
         });
+
+
     });
+
+    // $(document).('.autocompleteWarkah', '')
+    function autoCompleteWarkah (row) {
+        var idRow = row;
+        $(".autocompleteWarkah").autocomplete({
+            source: function(request, response) {
+                $.ajax({
+                    url: '/api/autocomplete-warkah',
+                    dataType: "json",
+                    data: {
+                        term : request.term
+                    },
+                    success: function(data) {
+                        response(data);
+                    }
+                });
+            },
+            select:function(event, ui){
+                var idWarkah =ui.item.id;
+                $.ajax({
+                    type: "GET",
+                    url: "{{ url('/api/show-autocomplete-warkah')}}",
+                    data : {
+                        id : idWarkah,
+                        row : idRow,
+                    },
+                    cache: false,
+                    dataType: "html",
+                    beforeSend  : function(){
+                        $(".prosesloading").show();
+                    },
+                    success: function(data){
+                        var dataWarkah = JSON.parse(data);
+                        var i =  dataWarkah.row;
+                        $('#no_warkah' + i).val(dataWarkah.no_warkah);
+                        $('#jenis' + i).val(dataWarkah.jenis);
+                        $('#album' + i).val(dataWarkah.album);
+                        $('#posisi' + i).val(dataWarkah.posisi);
+                        desa(i, dataWarkah.desa)
+
+                        return false;
+                        // $("#nama").val(datashow[0].nama);
+                        // $("#nip").val(datashow[0].nip);
+                        // $("#unit_kerja").val(datashow[0].unit_kerja);
+                        // $('#kegiatan').val(datashow[0].kegiatan_id);
+                        // $('#kegiatan').trigger('change');
+                    }
+                });
+            },
+            minLength: 2,
+        });
+    }
+
 
     function setDate() {
         var dateNext = new Date();
