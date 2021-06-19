@@ -66,7 +66,7 @@
                 autoFilter: true,
                 text: '<i class = "fa fa-file-excel-o"> Export Excel</i>',
                 exportOptions: {
-                    columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+                    columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
                 },
             }],
             colReorder: true,
@@ -77,26 +77,17 @@
                 "type": 'POST',
             },
             columns: [
-                {data: 'id', className:'text-center'},
+                {data: 'id',className:'text-center'},
                 {data: 'peminjamans.nama'},
                 {data: 'peminjamans.via'},
                 {data: 'kegiatans.nama_kegiatan'},
-                {
-                    data: 'no_hak',
-                    render: function(data, type, row){
-                        return data + ' / '+row.jenis_hak;
-                    }
-                },
-                {
-                    data: 'desa',
-                    render: function(data, type,row){
-                        return data + ' / '+row.kecamatan;
-                    }
-                },
-                {data: 'no_ht'},
-                {data: 'no_su'},
                 {data: 'no_warkah'},
+                {data: 'jenis'},
+                {data: 'album'},
+                {data: 'posisi'},
+                {data: 'desa'},
                 {data: 'tanggalpinjamstring', name:'tanggal_pinjam'},
+                {data: 'tanggaltempostring',name:'tanggal_jatuh_tempo'},
                 {
                     data:'id', searchable:false, orderable:false,
                     render:function(data, type,row){
@@ -108,7 +99,7 @@
                 },
                 {data: 'tanggal_pinjam', searchable:false, visible:false},
             ],
-            order: [[ 11, 'desc' ]],
+            order: [[ 12, 'desc' ]],
             aLengthMenu: [[10,25, 50, 75, -1], [10,25, 50, 75, "Semua"]],
             iDisplayLength: 25,
              'select': {
@@ -133,13 +124,13 @@
                 column_number: 4,
                 filter_type: "text",
                 filter_delay: 500,
-                filter_default_label: "No Hak"
+                filter_default_label: "No Warkah"
             },
             {
-                column_number: 5,
+                column_number: 8,
                 filter_type: "text",
                 filter_delay: 500,
-                filter_default_label: "Nama Desa"
+                filter_default_label: "Desa Kecamatan"
             },
         ]);
         Tablee.on( 'draw.dt', function () {

@@ -51,27 +51,15 @@
                 "type": 'POST',
             },
             columns: [
-                {data: 'id',className:'text-center', searchable: false,orderable:false},
+                {data: 'id',className:'text-center'},
                 {data: 'peminjamans.nama'},
                 {data: 'peminjamans.via'},
                 {data: 'kegiatans.nama_kegiatan'},
-                {
-                    data: 'no_hak',
-                    render: function(data, type, row){
-                        return data + ' / '+row.jenis_hak;
-                    },
-                    orderable:false
-                },
-                {
-                    data: 'desa',
-                    render: function(data, type,row){
-                        return data + ' / '+row.kecamatan;
-                    },
-                    orderable:false
-                },
-                {data: 'no_ht'},
-                {data: 'no_su'},
                 {data: 'no_warkah'},
+                {data: 'jenis'},
+                {data: 'album'},
+                {data: 'posisi'},
+                {data: 'desa'},
                 {data: 'tanggalpinjamstring', name:'tanggal_pinjam'},
                 {data: 'tanggaltempostring',name:'tanggal_jatuh_tempo'},
                 {data: 'tanggalkembalistring',name:'tanggal_kembali'},
@@ -100,13 +88,13 @@
                 column_number: 4,
                 filter_type: "text",
                 filter_delay: 500,
-                filter_default_label: "No Hak"
+                filter_default_label: "No Warkah"
             },
             {
-                column_number: 5,
+                column_number: 8,
                 filter_type: "text",
                 filter_delay: 500,
-                filter_default_label: "Nama Desa"
+                filter_default_label: "Desa Kecamatan"
             },
         ]);
         Tablee.on( 'draw.dt', function () {

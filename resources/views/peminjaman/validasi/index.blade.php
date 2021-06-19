@@ -18,7 +18,7 @@
             <div class="col-md-2">
                 <div class="form-group">
                     <label class="control-label">Jenis Kegiatan</label>
-                    <select id="kegiatan" class="form-control" required="true" name="kegiatan">
+                    <select id="kegiatan" class="form-control select2" required="true" name="kegiatan">
                         <option value="">-- Pilih kegiatan --</option>
                         @foreach ($kegiatan as $val)
                             <option data-id="{{ $val->batas_waktu }}" value="{{ $val->id }}">{{ $val->nama_kegiatan }}</option>
@@ -46,15 +46,14 @@
             <thead>
                 <tr>
                     <th>No.</th>
-                    <th>No.Seri</th>
                     <th>Peminjam</th>
                     <th>Via</th>
                     <th>Kegiatan</th>
                     <th style="padding-left:0px"></th>
+                    <th width="7%">Jenis</th>
+                    <th width="7%">Album</th>
+                    <th width="16%">Posisi</th>
                     <th style="padding-left:0px"></th>
-                    <th width="7%">No.HT </th>
-                    <th width="7%">No.SU</th>
-                    <th width="7%">No.Warkah</th>
                     <th>Tanggal Pinjam</th>
                     <th></th>
                     <th>Order</th>

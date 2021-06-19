@@ -46,25 +46,15 @@
                 "type": 'POST',
             },
             columns: [
-                {data: 'id', className:'text-center'},
+                {data: 'id',className:'text-center'},
                 {data: 'peminjamans.nama'},
                 {data: 'peminjamans.via'},
                 {data: 'kegiatans.nama_kegiatan'},
-                {
-                    data: 'no_hak',
-                    render: function(data, type, row){
-                        return data + ' / '+row.jenis_hak;
-                    }
-                },
-                {
-                    data: 'desa',
-                    render: function(data, type,row){
-                        return data + ' / '+row.kecamatan;
-                    }
-                },
-                {data: 'no_ht'},
-                {data: 'no_su'},
                 {data: 'no_warkah'},
+                {data: 'jenis'},
+                {data: 'album'},
+                {data: 'posisi'},
+                {data: 'desa'},
                 {data: 'tanggalpinjamstring', name:'tanggal_pinjam'},
                 {data: 'tanggalkembalistring', nama:'tanggal_kembali'},
                 {data: 'action',orderable:false, searchable:false, className:'text-center'},
@@ -79,6 +69,20 @@
             aLengthMenu: [[10,25, 50, 75, -1], [10,25, 50, 75, "Semua"]],
             iDisplayLength: 25,
         }),
+        yadcf.init(Tablee, [
+            {
+                column_number: 4,
+                filter_type: "text",
+                filter_delay: 500,
+                filter_default_label: "No Warkah"
+            },
+            {
+                column_number: 8,
+                filter_type: "text",
+                filter_delay: 500,
+                filter_default_label: "Desa kecamatan"
+            },
+        ]);
         Tablee.on( 'draw.dt', function () {
             var PageInfo = $('#data-kembali').DataTable().page.info();
                 Tablee.column(0, { page: 'current' }).nodes().each( function (cell, i) {

@@ -46,6 +46,7 @@ class PeminjamanValidasiController extends Controller
             $date= Carbon::now()->addDays('-'.$request->hari_lewat)->format('Y-m-d');
             $data->whereDate('tanggal_pinjam', '<=', $date);
         }
+
         return Datatables::of($data)
             ->addColumn('action',function($data){
                 return ' <label class="check"><input type="checkbox" class="icheckbox" name="check[]" value="'.$data->id.'"/></label>';

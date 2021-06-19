@@ -81,25 +81,18 @@
             },
             columns: [
                 {data: 'id',className:'text-center'},
-                {data: 'no_seri'},
                 {data: 'peminjamans.nama'},
                 {data: 'peminjamans.via'},
                 {data: 'kegiatans.nama_kegiatan'},
-                {
-                    data: 'no_hak',
-                    render: function(data, type, row){
-                        return data + ' / '+row.jenis_hak;
-                    }
-                },
-                {
-                    data: 'desa',
-                    render: function(data, type,row){
-                        return data + ' / '+row.kecamatan;
-                    }
-                },
-                {data: 'no_ht'},
-                {data: 'no_su'},
                 {data: 'no_warkah'},
+                {data: 'jenis'},
+                {data: 'album'},
+                {data: 'posisi'},
+                {data: 'desa',
+                    // render: function(data, type,row){
+                    //     return data + ' / '+row.kecamatan;
+                    // }
+                },
                 {data: 'tanggalpinjamstring', name:'tanggal_pinjam'},
                 // {data: 'action',orderable:false, searchable:false, className:'text-center'},
                 {
@@ -118,7 +111,7 @@
                 orderable:false,
                 targets: 0
             } ],
-            order: [[ 12, 'desc' ]],
+            order: [[ 11, 'desc' ]],
             'select': {
                 'style': 'multi'
             },
@@ -129,6 +122,7 @@
                 {
                     $('td', row).css('background-color', '#f2dede');
                 }else if(data.tanggalpinjamtiga <= moment().format('YYYYMMDD')){
+
                     $('td', row).css('background-color', '#fcf8e3');
                 }
                 rowId = data.id;
@@ -140,16 +134,16 @@
 
         yadcf.init(Tablee, [
             {
-                column_number: 5,
+                column_number: 4,
                 filter_type: "text",
                 filter_delay: 500,
-                filter_default_label: "No Hak"
+                filter_default_label: "No Warkah"
             },
             {
-                column_number: 6,
+                column_number: 8,
                 filter_type: "text",
                 filter_delay: 500,
-                filter_default_label: "Nama Desa"
+                filter_default_label: "Desa kecamatan"
             },
         ]);
 

@@ -52,15 +52,15 @@
         <table class="table table-hover table-striped table-borderless table-responsive" style="width:100%" id="data-kembali">
             <thead>
                 <tr>
-                    <th width='1%'>No.</th>
+                    <th>No.</th>
                     <th>Peminjam</th>
                     <th>Via</th>
                     <th>Kegiatan</th>
-                    <th>No.Hak / Jenis Hak</th>
-                    <th>Desa / Kecamatan</th>
-                    <th width="7%">No.HT </th>
-                    <th width="7%">No.SU</th>
-                    <th width="7%">No.Warkah</th>
+                    <th style="padding-left:0px"></th>
+                    <th width="7%">Jenis</th>
+                    <th width="7%">Album</th>
+                    <th width="16%">Posisi</th>
+                    <th style="padding-left:0px"></th>
                     <th>Tanggal Pinjam</th>
                     <th>Tanggal Kembali</th>
                     <th></th>
