@@ -29,6 +29,7 @@
         .atasjudul{
             width: 100%;
             padding: 0px 100px;
+            margin-top: 10px;
             text-align: center;
         }
         .heaederorang{
@@ -124,7 +125,7 @@
         </div>
     </div>
     <div class="atasjudul">
-        <b><u>PERMOHONAN PEMINJAMAN BUKUTANAH DAN WARKAH</u></b><br>
+        <b><u>PERMOHONAN PEMINJAMAN WARKAH</u></b><br>
         <i>Nomor : {{ $data->id }} / 2021</i>
     </div>
     <div class="heaederorang">
@@ -188,23 +189,21 @@
         <table id="customers">
             <thead>
                 <tr>
-                    <th width="10%">No.Hak</th>
-                    <th width="10%">Jenis Hak</th>
-                    <th width="15%">Desa / Kecamatan</th>
-                    <th width="10%">No.SU/No.HT</th>
-                    <th width="10%">No.Warkah</th>
-                    <th width="15%">No.Seri </th>
+                    <th width="10%">No warkah</th>
+                    <th width="10%">Jenis</th>
+                    <th width="8%">Album</th>
+                    <th width="20%">Posisi</th>
+                    <th width="20%">Desa / Kecamatan</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach($data->peminjamandetail as $datas)
+                @foreach($data->peminjamandetail as $val)
                 <tr>
-                    <td> {{ $datas->no_hak }}</td>
-                    <td> {{ $datas->jenis_hak }}</td>
-                    <td> {{ $datas->desa }} / {{ $datas->kecamatan }}</td>
-                    <td> {{ $datas->no_su ?? $datas->no_ht }}</td>
-                    <td> {{ $datas->no_warkah }}</td>
-                    <td> {{ $datas->no_seri }}</td>
+                    <td> {{ $val->no_warkah }}</td>
+                    <td> {{ $val->jenis }}</td>
+                    <td> {{ $val->album }} </td>
+                    <td> {{ $val->posisi }}</td>
+                    <td> {{ $val->desa }}</td>
                 </tr>
                 @endforeach
             </tbody>

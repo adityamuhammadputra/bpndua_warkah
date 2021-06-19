@@ -289,6 +289,8 @@
                             delete data.updated_at
                             delete data.no_warkah_tahun
                             delete data.posisi
+                            delete data.kantor_id
+                            delete data.kantor
                             $(eval(index)).val(obj)
                             $(eval(index)).val(obj).trigger('change')
                         });

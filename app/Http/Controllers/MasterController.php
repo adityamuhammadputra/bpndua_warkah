@@ -60,8 +60,11 @@ class MasterController extends Controller
     {
         $query = $request->get('term','');
 
-        $datas = Warkah::where('no_warkah','LIKE','%'.$query.'%')
-                    ->orWhere('tahun','LIKE','%'.$query.'%')
+        $datas = Warkah::where('kantor_id', userKantorId())
+                    ->where(function($q) use($query){
+                        $q->where('no_warkah','LIKE','%'.$query.'%')
+                            ->orWhere('tahun','LIKE','%'.$query.'%');
+                    })
                     ->limit(10)
                     ->get();
 
@@ -148,7 +151,7 @@ class MasterController extends Controller
         if ($request->master == 'kegiatan') {
             $data = Kegiatan::query();
         } else if ($request->master == 'warkah') {
-            $data = Warkah::with('jenisWarkah');
+            $data = Warkah::with('jenisWarkah')->where('kantor_id', userKantorId());
         } else {
             $data = Pegawai::with('kegiatans');
         }

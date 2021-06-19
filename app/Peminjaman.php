@@ -11,6 +11,8 @@ class Peminjaman extends Model
     protected $guarded = [];
     protected $appends = ['jumlahpinjam', 'tanggalpinjamstring', 'tanggalkembalistring', 'tanggalpinjamorder'];
 
+    protected $with = ['kantor'];
+
     public function kegiatan()
     {
         return $this->belongsTo('App\Kegiatan', 'kegiatan_id', 'id');
@@ -41,5 +43,9 @@ class Peminjaman extends Model
         return datesOrder($this->attributes['tanggal_pinjam']);
     }
 
+    public function kantor()
+    {
+        return $this->belongsTo(Kantor::class);
+    }
 
 }

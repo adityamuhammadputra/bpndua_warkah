@@ -14,4 +14,9 @@ class Pegawai extends Model
         return $this->hasOne('App\Kegiatan', 'id', 'kegiatan_id');
     }
 
+    public function kantor()
+    {
+        return $this->belongsTo(Kantor::class);
+    }
+
 }

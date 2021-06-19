@@ -7,8 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 class Warkah extends Model
 {
     protected $table = 'master_warkah';
-    protected $appends = ['no_warkah_tahun', 'posisi'];
     protected $guarded = [];
+    protected $appends = ['no_warkah_tahun', 'posisi'];
+    protected $with = ['kantor'];
 
     protected $witj = ['jenisWarkah'];
 
@@ -25,6 +26,11 @@ class Warkah extends Model
     public function getPosisiAttribute()
     {
         return "Ruang:$this->ruang, Rak: $this->rak, Baris: $this->baris";
+    }
+
+    public function kantor()
+    {
+        return $this->belongsTo(Kantor::class);
     }
 
 }

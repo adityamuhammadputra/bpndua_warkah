@@ -4,8 +4,12 @@
 @section('judul', 'Peminjaman Register')
 @section('content')
     @include('peminjaman.register.form')
+
     <div class="panel-body">
-        <div class="table-responsive">
+        <div class="row" style="position: absolute; background: #efefee;width: 120%;left: -20px; height: 25px;">
+
+        </div>
+        <div class="table-responsive" style="margin-top:50px;">
             <table class="table table-hover table-striped table-borderless" style="width:100%" id="data-peminjaman">
                 <thead>
                     <tr>

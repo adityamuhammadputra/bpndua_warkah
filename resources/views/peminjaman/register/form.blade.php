@@ -25,14 +25,14 @@
             <div class="col-md-6">
                 <div class="form-group">
                     <label for="name" class="control-label">Nama Peminjam</label>
-                    <input type="text" class="form-control" name="nama" id="nama" required >
+                    <input type="text" class="form-control" name="nama" id="nama" required autofocus>
                     <span class="help-block with-errors"></span>
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="form-group">
                     <label for="name" class="control-label">NIP</label>
-                    <input type="text" class="form-control" name="nip" id="nip" reqired readonly>
+                    <input type="text" class="form-control" name="nip" id="nip" readonly>
                     <span class="help-block with-errors"></span>
                 </div>
             </div>
@@ -41,7 +41,7 @@
             <div class="col-md-6">
                 <div class="form-group">
                     <label class="control-label">Unit Kerja</label>
-                    <input type="text" class="form-control" name="unit_kerja" id="unit_kerja" reqired readonly>
+                    <input type="text" class="form-control" name="unit_kerja" id="unit_kerja" readonly>
                     <span class="help-block with-errors"></span>
                 </div>
             </div>
@@ -92,13 +92,14 @@
             </div>
         </div>
 
+
         {{-- tidide --}}
         <div class="panel-body table-responsive">
             <table class="table table-striped table-borderless" style="width:100%" id="item_table">
                 <thead>
                     <tr>
                         <th width="10%">No Warkah</th>
-                        <th width="8%">Jenis Warkah <input type="checkbox" id="samakan-jenishak"></th>
+                        <th width="8%">Jenis Warkah <input type="checkbox" id="samakan-jenis"></th>
                         <th width="8%">Album</th>
                         <th width="20%">Posisi Warkah</th>
                         <th width="13%">Desa, Kecamatan <input type="checkbox" id="samakan-desa"></th>
@@ -109,10 +110,18 @@
                     </tr>
                 </thead>
                 <tbody>
+                    <tr class="row1">
+                        <td><input type="text" name="newno_warkah[]" id="no_warkah1" class="form-control autocompleteWarkah no_warkah" datarow="1" placeholder="Nomor Warkah" required/></td>
+                        <td><input type="text" name="newjenis[]" id="jenis1" class="form-control jenis" placeholder="Jenis Warkah" /></td>
+                        <td><input type="text" name="newalbum[]" id="album1" class="form-control" placeholder="Album" /></td>
+                        <td><input type="text" name="newposisi[]" id="posisi1" class="form-control" placeholder="Posisi" /></td>
+                        <td><select class="form-control desa" name="newdesa[]"  id="desa1"></select></td>
+                        <td width="5%" class="text-right"><button type="button" name="remove" class= "btn btn-danger remove btn-sm"><i class="fa fa-minus"></i></button></td>
+                    </tr>
                 </tbody>
             </table>
             <button type="submit" class="btn btn-primary pull-right"><i class="fa fa-check-circle"></i> <t class="tombol-simpan">Simpan</t></button>
-            <button type="button" class="btn btn-default pull-right" onclick="btnCancel()"><i class="fa fa-times-circle"></i> Batal</button>
+            <button type="button" class="btn btn-default pull-right" onclick="btnCancel()" style="margin-right: 10px;"><i class="fa fa-times-circle"></i> Batal</button>
         </div>
         {{-- tidide --}}
 

@@ -39,6 +39,8 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    protected $with = ['kantor'];
+
 
     public function getEmailAttribute($value)
     {
@@ -61,6 +63,16 @@ class User extends Authenticatable
     public function hasAnyRole($roles)
     {
         return null !== $this->roles()->whereIn('name', $roles)->first();
+    }
+
+    /**
+     * Get the kantor that owns the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function kantor()
+    {
+        return $this->belongsTo(Kantor::class);
     }
 
 }

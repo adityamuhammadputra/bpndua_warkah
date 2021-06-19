@@ -17,6 +17,8 @@ use App\PeminjamanDetail;
 use App\JenisHak;
 use App\Kecamatan;
 use App\Desa;
+use Carbon\Carbon as CarbonCarbon;
+use Illuminate\Support\Facades\DB;
 
 class PeminjamanRegisterController extends Controller
 {
@@ -32,7 +34,10 @@ class PeminjamanRegisterController extends Controller
     public function store(Request $request)
     {
         Auth::user()->authorizeRoles(['admin']);
+
+        DB::beginTransaction();
         $peminjaman = Peminjaman::create([
+            'kantor_id' => userKantorId(),
             'nip' => $request->nip,
             'nama' => $request->nama,
             'unit_kerja' => $request->unit_kerja,
@@ -41,31 +46,30 @@ class PeminjamanRegisterController extends Controller
             'tanggal_pinjam' => datesInput($request->tanggal_pinjam),
             'tanggal_jatuh_tempo' =>  datesInput($request->tanggal_kembali),
             'created_by' => auth()->user()->id,
-            'status' => '1'
+            'status' => '1',
         ]);
 
-        if ($request->newno_hak != null){
+        if ($request->newno_warkah != null){
             $datas = [];
-            for($i = 0; $i < count($request->newno_hak); $i++){
-                $desa = explode(', ', $request->newdesa[$i]);
+            for($i = 0; $i < count($request->newno_warkah); $i++){
                 $datas = [
-                    'peminjaman_id' => $peminjaman->id,
-                    'no_seri' => $request->newno_seri[$i],
-                    'no_hak' => $request->newno_hak[$i],
-                    'jenis_hak' => $request->newjenis_hak[$i],
-                    'desa' => $desa[0],
-                    'kecamatan' => $desa[1],
                     'no_warkah' => $request->newno_warkah[$i],
-                    'no_su' => $request->newno_su[$i],
-                    'no_ht' => $request->newno_ht[$i],
-                    'status' =>  '1',
+                    'peminjaman_id' => $peminjaman->id,
+                    'kantor_id' => userKantorId(),
                     'kegiatan_id' => $request->kegiatan,
+                    'jenis' => $request->newjenis[$i],
+                    'album' => $request->newalbum[$i],
+                    'posisi' => $request->newposisi[$i],
+                    'desa' => $request->newdesa[$i],
+                    'status' =>  '1',
                     'tanggal_pinjam' => datesInput($request->tanggal_pinjam),
-                    'tanggal_jatuh_tempo' =>  datesInput($request->tanggal_kembali),
+                    'tanggal_jatuh_tempo' => datesInput($request->tanggal_kembali),
+                    'created_at' => CarbonCarbon::now(),
                 ];
                 PeminjamanDetail::insert($datas);
             }
         }
+        DB::commit();
 
         return $peminjaman;
     }
@@ -85,49 +89,48 @@ class PeminjamanRegisterController extends Controller
             'unit_kerja' => $request->unit_kerja,
             'kegiatan_id' => $request->kegiatan,
             'via' => $request->via,
-            // 'tanggal_pinjam' => datesInput($request->tanggal_pinjam),
             'tanggal_kembali' => null,
             'tanggal_jatuh_tempo' =>  datesInput($request->tanggal_kembali),
         ];
         $peminjaman = Peminjaman::find($id);
         $peminjaman->update($data);
 
-        if($request->no_hak){
-            foreach (array_keys($request->no_hak) as $key) {
+        if($request->no_warkah){
+            foreach (array_keys($request->no_warkah) as $key) {
                 $detail = PeminjamanDetail::where('id', $key);
-                $desa = explode(', ', $request->desa[$key][0]);
+                $desa = explode(', ', $request->desa[$key]);
                 $detail->update([
-                    'no_seri' => $request->no_seri[$key][0],
-                    'no_hak' => $request->no_hak[$key][0],
-                    'jenis_hak' => $request->jenis_hak[$key][0],
-                    'desa' => $desa[0],
-                    'kecamatan' => $desa[1],
-                    'no_ht' => $request->no_ht[$key][0],
-                    'no_su' => $request->no_su[$key][0],
-                    'no_warkah' => $request->no_warkah[$key][0],
+                    'no_warkah' => $request->no_warkah[$key],
+                    'peminjaman_id' => $peminjaman->id,
+                    'kantor_id' => userKantorId(),
                     'kegiatan_id' => $request->kegiatan,
+                    'jenis' => $request->jenis[$key],
+                    'album' => $request->album[$key],
+                    'posisi' => $request->posisi[$key],
+                    'desa' => $request->desa[$key],
+                    'status' =>  '1',
                     'tanggal_pinjam' => datesInput($request->tanggal_pinjam),
-                    'tanggal_jatuh_tempo' =>  datesInput($request->tanggal_kembali),
+                    'tanggal_jatuh_tempo' => datesInput($request->tanggal_kembali),
+                    'udpated_at' => CarbonCarbon::now(),
                 ]);
             }
         }
 
-        if ($request->newno_hak != null){
-            foreach($request->newno_hak as $i => $val){
+        if ($request->no_warkah != null){
+            foreach($request->no_warkah as $i => $val){
                 $datanew[] = [
-                    'peminjaman_id' => $id,
-                    'no_seri' => $request->newno_seri[$i],
-                    'no_hak' => $request->newno_hak[$i],
-                    'jenis_hak' => $request->newjenis_hak[$i],
-                    'desa' => $request->newdesa[$i],
-                    'kecamatan' => $request->newkecamatan[$i],
-                    'no_warkah' => $request->newno_warkah[$i],
-                    'no_su' => $request->newno_su[$i],
-                    'no_ht' => $request->newno_ht[$i],
-                    'status' =>  '1',
+                    'no_warkah' => $request->no_warkah[$key],
+                    'peminjaman_id' => $peminjaman->id,
+                    'kantor_id' => userKantorId(),
                     'kegiatan_id' => $request->kegiatan,
+                    'jenis' => $request->jenis[$key],
+                    'album' => $request->album[$key],
+                    'posisi' => $request->posisi[$key],
+                    'desa' => $request->desa[$key],
+                    'status' =>  '1',
                     'tanggal_pinjam' => datesInput($request->tanggal_pinjam),
-                    'tanggal_jatuh_tempo' =>  datesInput($request->tanggal_kembali),
+                    'tanggal_jatuh_tempo' => datesInput($request->tanggal_kembali),
+                    'created_at' => CarbonCarbon::now(),
                 ];
                 PeminjamanDetail::insert($datanew);
             }
@@ -205,10 +208,8 @@ class PeminjamanRegisterController extends Controller
         $peminjaman->status = 2;
         $peminjaman->pdf = $pathfile;
         $peminjaman->update();
-
-        $pdf = PDF::loadView('peminjaman.register.cetak', $data);
+        $pdf = Pdf::loadView('peminjaman.register.cetak', $data);
         $pdf->save(storage_path().'/'.$pathfile);
-
         $response = [
             'message' => 'Data atas nama ' .$peminjaman->nama. 'berhasil divalidasi ke Peminjaman Validasi!',
             'id' => '#'.$peminjaman->id,

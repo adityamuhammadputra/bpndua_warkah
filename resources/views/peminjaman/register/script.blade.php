@@ -58,13 +58,13 @@
         return false;
     });
 
-    $('#samakan-jenishak').on('click',function () {
-        var jenis_hak = $('#item_table tr input.jenishak:first').val();
+    $('#samakan-jenis').on('click',function () {
+        var jenis_hak = $('#item_table tr input.jenis:first').val();
         if($(this).prop('checked')){
-            $('.jenishak').val(jenis_hak);
+            $('.jenis').val(jenis_hak);
         }
         else{
-            $('.jenishak').val('');
+            $('.jenis').val('');
         }
     })
 
@@ -78,25 +78,24 @@
         }
     })
 
+
     // tidei
     $(document).ready(function(){
-        var i= $('#item_table tr').length;
         $(document).on('click', '.add', function(){
-            // var i= 1;
-            var html = '';
-            html += '<tr class="row'+i+'">';
-            html += '<td><input type="text" name="newno_warkah[]" id="no_warkah'+i+'" class="form-control autocompleteWarkah" data-row="'+i+'" placeholder="Nomor Warkah"/></td>';
-            html += '<td><input type="text" name="newjenis[]" id="jenis'+i+'" class="form-control" placeholder="Jenis Warkah" /></td>';
-            html += '<td><input type="text" name="newalbum[]" id="album'+i+'" class="form-control" placeholder="Album" /></td>';
-            html += '<td><input type="text" name="newposisi[]" id="posisi'+i+'" class="form-control" placeholder="Posisi" /></td>';
-            html += '<td><select class="form-control desa" name="newdesa[]"  id="desa'+i+'""></select></td>';
-            html += '<td width="5%" class="text-right"><button type="button" name="remove" class= "btn btn-danger remove btn-sm"><i class="fa fa-minus"></i></button></td>';
-            html += '</tr>';
+            var i = $('#item_table tbody tr').length;
+            i++;
+            var html = '<tr class="row'+i+'">\
+                            <td><input type="text" name="newno_warkah[]" id="no_warkah'+i+'" class="form-control autocompleteWarkah no_warkah" datarow="'+i+'" placeholder="Nomor Warkah" required/></td>\
+                            <td><input type="text" name="newjenis[]" id="jenis'+i+'" class="form-control jenis" placeholder="Jenis Warkah" /></td>\
+                            <td><input type="text" name="newalbum[]" id="album'+i+'" class="form-control" placeholder="Album" /></td>\
+                            <td><input type="text" name="newposisi[]" id="posisi'+i+'" class="form-control" placeholder="Posisi" /></td>\
+                            <td><select class="form-control desa" name="newdesa[]"  id="desa'+i+'""></select></td>\
+                            <td width="5%" class="text-right"><button type="button" name="remove" class= "btn btn-danger remove btn-sm"><i class="fa fa-minus"></i></button></td>\
+                        </tr>';
             $('#item_table').append(html);
             desa(i, val='')
-            autoCompleteWarkah(i)
-            // $(".no_seri").focus();
-            i++;
+            autoCompleteWarkah()
+            $(".no_warkah").focus();
             $('.hidden-required').removeAttr('required');
         });
 
@@ -106,6 +105,7 @@
         });
     });
     // tidei
+    autoCompleteWarkah()
 
     function desa(i, val){
         $.ajax({
@@ -119,7 +119,6 @@
                     $.each(res,function(key,value) {
                         $("#desa"+i).append('<option value="'+value.name+', '+value.kecamatan+'">'+value.name+', '+value.kecamatan+'</option>');
                     });
-                    console.log(val)
                     $('#desa'+i).val(val).trigger('change');
                 }else{
                     $("#desa"+i).empty();
@@ -165,6 +164,7 @@
                         $("#unit_kerja").val(datashow[0].unit_kerja);
                         $('#kegiatan').val(datashow[0].kegiatan_id);
                         $('#kegiatan').trigger('change');
+                        $('#via').focus();
                     }
                 });
             },
@@ -175,10 +175,10 @@
     });
 
     // $(document).('.autocompleteWarkah', '')
-    function autoCompleteWarkah (row) {
-        var idRow = row;
+    function autoCompleteWarkah () {
         $(".autocompleteWarkah").autocomplete({
             source: function(request, response) {
+                var that = $(this);
                 $.ajax({
                     url: '/api/autocomplete-warkah',
                     dataType: "json",
@@ -191,6 +191,7 @@
                 });
             },
             select:function(event, ui){
+                var idRow = event.target.attributes.datarow.value;
                 var idWarkah =ui.item.id;
                 $.ajax({
                     type: "GET",
@@ -206,13 +207,12 @@
                     },
                     success: function(data){
                         var dataWarkah = JSON.parse(data);
-                        var i =  dataWarkah.row;
+                        var i = dataWarkah.row;
                         $('#no_warkah' + i).val(dataWarkah.no_warkah);
                         $('#jenis' + i).val(dataWarkah.jenis);
                         $('#album' + i).val(dataWarkah.album);
                         $('#posisi' + i).val(dataWarkah.posisi);
                         desa(i, dataWarkah.desa)
-
                         return false;
                         // $("#nama").val(datashow[0].nama);
                         // $("#nip").val(datashow[0].nip);
@@ -300,32 +300,33 @@
                 $('.tombol-simpan').text('Ubah');
                 $('.hidden-required').removeAttr('required');
                 $.each(data.peminjamandetail, function(k,val){
-                    if(val.no_seri == null) val.no_seri = '';
-                    if(val.no_hak == null) val.no_hak = '';
-                    if(val.jenis_hak == null) val.jenis_hak = '';
-                    if(val.no_ht == null) val.no_ht = '';
-                    if(val.no_warkah == null) val.no_warkah = '';
-                    if(val.no_su == null) val.no_su = '';
-                    var html = '<tr>\
-                                    <td><input type="text" name="no_seri['+val.id +'][]" id="no_seri'+i+'" value="'+ val.no_seri +'" data-type="no_seri" class="form-control" placeholder="No. Seri" /></td>\
-                                    <td><input type="text" name="no_hak['+val.id+'][]" id="no_hak'+i+'" value="'+val.no_hak+'" class="form-control" placeholder="Nomor Hak" /></td>\
-                                    <td><input type="text" name="jenis_hak['+val.id+'][]" id="jenis_hak'+i+'" value="'+val.jenis_hak+'" class="form-control jenishak" placeholder="Jenis Hak" /></td>\
-                                    <td><select class="form-control desa" name="desa['+val.id+'][]"  id="desa'+i+'" data-i="'+i+'"></select></td>\
-                                    <td><input type="text" name="no_ht['+val.id+'][]" id="no_ht'+i+'" value="'+val.no_ht+'" class="form-control" placeholder="Nomor HT"></td>\
-                                    <td><input type="text" name="no_warkah['+val.id+'][]" id="no_warkah'+i+'" value="'+val.no_warkah+'" class="form-control" placeholder="Nomor Warkah" /></td>\
-                                    <td><input type="text" name="no_su['+val.id+'][]" id="no_su'+i+'" value="'+val.no_su+'" class="form-control" placeholder="Nomor SU" /></td>\
-                                    <td><button type="button" class= "btn btn-danger alertshow btn-sm" id="'+val.id+'" data-id="'+val.id+'" data-judul="No HAK '+val.no_hak+'" data-head="menghapus" data-type="Hapus"><i class="fa fa-minus"></i></button></td>\
-                                </tr>';
-                    $('#item_table').append(html);
-                    desa(i, val.desa +', '+ val.kecamatan);
+                    var i = k;
                     i++;
+                    if(val.no_warkah == null) val.no_warkah = '';
+                    if(val.jenis == null) val.jenis = '';
+                    if(val.album == null) val.album = '';
+                    if(val.posisi == null) val.posisi = '';
+                    if(val.desa == null) val.desa = '';
+                    var html = '<tr class="row'+i+'">\
+                                    <td><input type="text" name="no_warkah['+i+']" id="no_warkah'+i+'" value="'+val.no_warkah+'" class="form-control autocompleteWarkah no_warkah" datarow="'+i+'" placeholder="Nomor Warkah" required/></td>\
+                                    <td><input type="text" name="jenis['+i+']" id="jenis'+i+'" value="'+val.jenis+'" class="form-control jenis" placeholder="Jenis Warkah" /></td>\
+                                    <td><input type="text" name="album['+i+']" id="album'+i+'" value="'+val.album+'" class="form-control" placeholder="Album" /></td>\
+                                    <td><input type="text" name="posisi['+i+']" id="posisi'+i+'" value="'+val.posisi+'" class="form-control" placeholder="Posisi" /></td>\
+                                    <td><select value="'+val.desa+'" class="form-control desa" name="desa['+i+']"  id="desa'+i+'""></select></td>\
+                                    <td width="5%" class="text-right"><button type="button" name="remove" class= "btn btn-danger remove btn-sm"><i class="fa fa-minus"></i></button></td>\
+                                </tr>';
+
+                    $('#item_table').append(html);
+                    desa(i, val.desa);
                 })
+                autoCompleteWarkah()
             },
             error: function () {
                 alert("Terjadi kesalah, Silahkan reload!");
             }
         });
     }
+
     $(function () {
         $('#form-peminjamanproses form').on('submit', function (e) {
             var url;
@@ -350,7 +351,7 @@
                     },
                     error: function () {
                         alert('Terkadi Kesalahan, Silahkan Reload');
-                        location.reload();
+                        // location.reload();
                     }
                 });
             return false;

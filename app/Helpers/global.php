@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 function datesInput($date){
     $d =  Carbon::createFromFormat('d/m/Y H:i', $date);
@@ -32,5 +33,15 @@ function datepluslima($date)
 
 function datesOnlyOrder($date){
     return Carbon::parse($date)->format('Ymd');
+}
+
+function userId()
+{
+    return Auth::user()->id;
+}
+
+function userKantorId()
+{
+    return Auth::user()->kantor_id;
 }
 
