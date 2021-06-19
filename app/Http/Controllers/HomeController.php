@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\JenisWarkah;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Support\Facades\DB;
 use App\PeminjamanDetail;
 use App\Kegiatan;
-
+use App\Peminjaman;
 
 class HomeController extends Controller
 {
@@ -37,36 +38,17 @@ class HomeController extends Controller
             'max_tanggal' => $tanggal_pengembalian_max,
         ];
 
-        $bukutanah = PeminjamanDetail::whereNotNull('no_hak')->where('no_hak', '!=', 'null')->where('status', 3);
-        $total_bukutanah = $bukutanah->count();
-        $tanggal_bukutanah_max = datesOutput2($bukutanah->max('tanggal_pinjam'));
-        $tanggal_bukutanah_min = datesOutput2($bukutanah->min('tanggal_pinjam'));
-        $data_bukutanah = [
-            'total' => $total_bukutanah,
-            'min_tanggal' => $tanggal_bukutanah_min,
-            'max_tanggal' => $tanggal_bukutanah_max,
-        ];
+        $jenis = JenisWarkah::get();
+        $peminjamanJenis = [];
 
-
-        $suratukur = PeminjamanDetail::whereNotNull('no_su')->where('no_su', '!=', 'null')->where('status', 3);
-        $total_suratukur = $suratukur->count();
-        $tanggal_suratukur_max = datesOutput2($suratukur->max('tanggal_pinjam'));
-        $tanggal_suratukur_min = datesOutput2($suratukur->min('tanggal_pinjam'));
-        $data_suratukur = [
-            'total' => $total_suratukur,
-            'min_tanggal' => $tanggal_suratukur_min,
-            'max_tanggal' => $tanggal_suratukur_max,
-        ];
-
-        $warkah = PeminjamanDetail::whereNotNull('no_warkah')->where('no_warkah', '!=', 'null')->where('status', 3);
-        $total_warkah = $warkah->count();
-        $tanggal_warkah_max = datesOutput2($warkah->max('tanggal_pinjam'));
-        $tanggal_warkah_min = datesOutput2($warkah->min('tanggal_pinjam'));
-        $data_warkah = [
-            'total' => $total_warkah,
-            'min_tanggal' => $tanggal_warkah_min,
-            'max_tanggal' => $tanggal_warkah_max,
-        ];
+        foreach($jenis as $j) :
+            $peminjamanJenis [] = [
+                'name' => $j->name,
+                'count' => PeminjamanDetail::where('jenis', $j->name)->where('status', 3)->count(),
+                'dateMin' => datesOutput2(PeminjamanDetail::where('jenis', $j->name)->where('status', 3)->min('tanggal_pinjam')) ?? '-',
+                'dateMax' => datesOutput2(PeminjamanDetail::where('jenis', $j->name)->where('status', 3)->max('tanggal_pinjam')) ?? '-',
+            ];
+        endforeach;
 
         $dashboard1 = Kegiatan::with('peminjamandetails')->whereIn('id', ['1','2','3','4','5','6','7','8'])->get();
         $dashboard2 = Kegiatan::with('peminjamandetails')->whereIn('id', ['9','10','11','12','13','14','15','16'])->get();
@@ -78,9 +60,7 @@ class HomeController extends Controller
                                     GROUP BY a.nama_kegiatan'));
 
         $data = [
-            'bukutanah' => $data_bukutanah,
-            'suratukur' => $data_suratukur,
-            'warkah' => $data_warkah,
+            'peminjamanJenis' => $peminjamanJenis,
             'peminjaman' => $data_pinjam,
             'pengembalian' => $data_kembali,
             'dashboard' => [

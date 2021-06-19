@@ -44,21 +44,14 @@
         <div class="col-md-3">
             <div class="widget widget-default widget-carousel">
                 <div class="owl-carousel" id="owl-example">
-                    <div>
-                        <div class="widget-title">Peminjaman Roya</div>
-                        <div class="widget-subtitle">{{ $data['bukutanah']['min_tanggal'] }} s/d {{ $data['bukutanah']['max_tanggal'] }}</div>
-                        <div class="widget-int">{{ $data['bukutanah']['total'] }}</div>
-                    </div>
-                    <div>
-                        <div class="widget-title">Peminjaman Rutin</div>
-                        <div class="widget-subtitle">{{ $data['suratukur']['min_tanggal'] }} s/d {{ $data['suratukur']['max_tanggal'] }}</div>
-                        <div class="widget-int">{{ $data['suratukur']['total'] }}</div>
-                    </div>
-                    <div>
-                        <div class="widget-title">Peminjaman PTSL</div>
-                        <div class="widget-subtitle">{{ $data['warkah']['min_tanggal'] }} s/d {{ $data['warkah']['max_tanggal'] }}</div>
-                        <div class="widget-int">{{ $data['warkah']['total'] }}</div>
-                    </div>
+                    @foreach ($data['peminjamanJenis'] as $item)
+                        <div>
+                            <div class="widget-title">{{ $item['name'] }}</div>
+                            <div class="widget-subtitle">{{ $item['dateMin'] }} s/d {{ $item['dateMax'] }}</div>
+                            <div class="widget-int">{{ $item['count'] }}</div>
+                        </div>
+                    @endforeach
+
                 </div>
                 <div class="widget-controls">
                     <a href="#" class="widget-control-right widget-remove" data-toggle="tooltip" data-placement="top" title="Remove Widget"><span class="fa fa-times"></span></a>
@@ -132,6 +125,65 @@
                 </div>
             </div>
 
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-8">
+            <div class="panel panel-default" style="height:330px;">
+                <div class="panel-heading ui-draggable-handle">
+                    <div class="panel-title-box">
+                        <h3>Layanan Sistem Informasi </h3>
+                        <span>Data Peminjaman, Pengaembalian Warkah Pertanahan Kantor Pertanahan Kabupaten Bogor</span>
+                    </div>
+                    <ul class="panel-controls" style="margin-top: 2px;">
+                        <li><a href="#" class="panel-fullscreen"><span class="fa fa-expand"></span></a></li>
+                        <li><a href="#" class="panel-refresh"><span class="fa fa-refresh"></span></a></li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="fa fa-cog"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#" class="panel-collapse"><span class="fa fa-angle-down"></span> Collapse</a></li>
+                                <li><a href="#" class="panel-remove"><span class="fa fa-times"></span> Remove</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="widget widget-default widget-carousel">
+                    <div id="chartContainer" style="height: 300px; width: 100%;"></div>
+                </div>
+
+            </div>
+        </div>
+        <div class="col-md-4" >
+            <div class="panel panel-default">
+                <div class="panel-heading ui-draggable-handle">
+                    <div class="panel-title-box">
+                        <h3>Logs</h3>
+                        <span>Last Logs {{ auth()->user()->name }}</span>
+                    </div>
+                    <ul class="panel-controls" style="margin-top: 2px;">
+                        <li><a href="#" class="panel-fullscreen"><span class="fa fa-expand"></span></a></li>
+                        <li><a href="#" class="panel-refresh"><span class="fa fa-refresh"></span></a></li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="fa fa-cog"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#" class="panel-collapse"><span class="fa fa-angle-down"></span> Collapse</a></li>
+                                <li><a href="#" class="panel-remove"><span class="fa fa-times"></span> Remove</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <!-- InstaWidget -->
+                </div>
+
+                <div class="panel-body panel-body-table" style="overflow: auto;">
+                    <div style="height:310px;">
+                        {{-- <a href="https://instawidget.net/v/user/kantah_kabbogor" id="link-00bde5fe2115a26b63fc304528cbc5558c6a14394402723d39656c6fe40dea91">@kantah_kabbogor</a> --}}
+                        {{-- <script src="https://instawidget.net/js/instawidget.js?u=00bde5fe2115a26b63fc304528cbc5558c6a14394402723d39656c6fe40dea91&width=100%"></script> --}}
+                    </div>
+                </div>
+
+            </div>
         </div>
     </div>
 
@@ -263,65 +315,6 @@
             </div>
         </div>
     </div>
-
- <div class="row">
-    <div class="col-md-8">
-        <div class="panel panel-default" style="height:400px;">
-            <div class="panel-heading ui-draggable-handle">
-                <div class="panel-title-box">
-                    <h3>Layanan Sistem Informasi </h3>
-                    <span>Seksi Hubungan Hukum Pertanahan Kantor Pertanahan Kabupaten Bogor</span>
-                </div>
-                <ul class="panel-controls" style="margin-top: 2px;">
-                    <li><a href="#" class="panel-fullscreen"><span class="fa fa-expand"></span></a></li>
-                    <li><a href="#" class="panel-refresh"><span class="fa fa-refresh"></span></a></li>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="fa fa-cog"></span></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="#" class="panel-collapse"><span class="fa fa-angle-down"></span> Collapse</a></li>
-                            <li><a href="#" class="panel-remove"><span class="fa fa-times"></span> Remove</a></li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-
-            <div class="widget widget-default widget-carousel">
-                <div id="chartContainer" style="height: 450px; width: 100%;"></div>
-            </div>
-
-        </div>
-    </div>
-    <div class="col-md-4" >
-        <div class="panel panel-default">
-            <div class="panel-heading ui-draggable-handle">
-                <div class="panel-title-box">
-                    <h3>INSTAGRAM</h3>
-                    <span>Kantah Kab.Bogor</span>
-                </div>
-                <ul class="panel-controls" style="margin-top: 2px;">
-                    <li><a href="#" class="panel-fullscreen"><span class="fa fa-expand"></span></a></li>
-                    <li><a href="#" class="panel-refresh"><span class="fa fa-refresh"></span></a></li>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="fa fa-cog"></span></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="#" class="panel-collapse"><span class="fa fa-angle-down"></span> Collapse</a></li>
-                            <li><a href="#" class="panel-remove"><span class="fa fa-times"></span> Remove</a></li>
-                        </ul>
-                    </li>
-                </ul>
-                <!-- InstaWidget -->
-            </div>
-
-            <div class="panel-body panel-body-table" style="overflow: auto;">
-                <div style="height:450px;">
-                    {{-- <a href="https://instawidget.net/v/user/kantah_kabbogor" id="link-00bde5fe2115a26b63fc304528cbc5558c6a14394402723d39656c6fe40dea91">@kantah_kabbogor</a> --}}
-                    {{-- <script src="https://instawidget.net/js/instawidget.js?u=00bde5fe2115a26b63fc304528cbc5558c6a14394402723d39656c6fe40dea91&width=100%"></script> --}}
-                </div>
-            </div>
-
-        </div>
-    </div>
-</div>
 <style>
 .no-js #loader { display: none;  }
 .js #loader { display: block; position: absolute; left: 100px; top: 0; }
@@ -531,6 +524,7 @@ window.onload = function () {
 var chart = new CanvasJS.Chart("chartContainer", {
 	animationEnabled: true,
 	exportEnabled: true,
+    height: 300,
     theme: "light1", // "light1", "light2", "dark1", "dark2"
 	data: [{
 		type: "area", //change type to bar, line, area, pie, etc
