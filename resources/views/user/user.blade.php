@@ -10,7 +10,7 @@
 <div class="row">
     <div class="col-md-3">
         <div class="panel panel-default">
-            <div class="panel-body profile" style="background: url('{{ auth()->user()->foto }}') center center no-repeat;">
+            <div class="panel-body profile" style="background: url('https://thumbs.gfycat.com/AbleTastyCirriped-size_restricted.gif') center center no-repeat;">
                 <div class="profile-image" style="display: block;">
                     <img src="{{ auth()->user()->foto }}" alt="Nadia Ali">
                 </div>
