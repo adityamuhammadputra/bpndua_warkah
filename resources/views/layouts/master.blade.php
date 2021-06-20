@@ -17,7 +17,7 @@
                 <ul class="x-navigation">
                     <li class="xn-logo">
                         <a href="{{ url('home') }}">H2P
-                            <span style="font-size: 14px;font-family: cursive;">
+                            <span style="font-size: 12px;font-family: monospace;color: #1caf9a;">
                                 warkah.
                             </span>
                         </a>
