@@ -3,7 +3,13 @@
 @section('level2', 'Warkah')
 @section('judul', 'Master Warkah')
 @section('content')
-
+<style>
+    .posisi{
+        position: absolute;
+        right: 0px;
+        top: -50px;
+    }
+    </style>
 <form method="post" data-toogle="validator" class="form-horzontal" id="form">
     <div class="row">
         <div class="col-md-2">
@@ -26,6 +32,8 @@
                     <option value="2">Tidak Tersedia</option>
                 </select>
             </div>
+        </div>
+        <div class="col-md-2 col-md-offset-6">
         </div>
     </div>
 </form>
@@ -71,6 +79,19 @@
         'use strict';
         var Table;
         Table = $('#data').DataTable({
+            dom:"<'row posisi'B>lftip",
+            buttons: [{
+                extend:'excel',
+                filename: 'daftarWarkah',
+                autoFilter: true,
+                text: '<i class = "fa fa-file-excel-o"> Export Excel</i>',
+                exportOptions: {
+                    columns: [0, 1, 2, 3, 4, 5, 6, 7, 8],
+                },
+            }],
+            colReorder: true,
+            processing: true,
+            serverSide:true,
             ajax:{
                 "url": "{{ url('datatable/master') }}?master=warkah",
                 "type": 'POST',

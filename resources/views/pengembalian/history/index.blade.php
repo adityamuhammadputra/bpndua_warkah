@@ -5,9 +5,10 @@
 @section('content')
     <style>
     .posisi{
-        position: fixed;
-        right: 25px;
-        top: 180px;
+        position: absolute;
+        right: 0px;
+        top: -50px;
+        z-index: 111111;
     }
     </style>
     <form method="post" data-toogle="validator" class="form-horzontal" id="form">
@@ -48,28 +49,26 @@
         </div>
     </form>
     <br>
-    <div class="table-responsive">
-        <table class="table table-hover table-striped table-borderless table-responsive" style="width:100%" id="data-kembali">
-            <thead>
-                <tr>
-                    <th>No.</th>
-                    <th>Peminjam</th>
-                    <th>Via</th>
-                    <th>Kegiatan</th>
-                    <th style="padding-left:0px"></th>
-                    <th width="7%">Jenis</th>
-                    <th width="7%">Album</th>
-                    <th width="16%">Posisi</th>
-                    <th style="padding-left:0px"></th>
-                    <th>Tanggal Pinjam</th>
-                    <th>Tanggal Kembali</th>
-                    <th></th>
-                    <th>Order</th>
-                </tr>
-            </thead>
-            <tbody>
-            </tbody>
-        </table>
-    </div>
+    <table class="table table-hover table-striped table-borderless table-responsive" style="width:100%" id="data-kembali">
+        <thead>
+            <tr>
+                <th>No.</th>
+                <th>Peminjam</th>
+                <th>Via</th>
+                <th>Kegiatan</th>
+                <th style="padding-left:0px"></th>
+                <th width="7%">Jenis</th>
+                <th width="7%">Album</th>
+                <th width="16%">Posisi</th>
+                <th style="padding-left:0px"></th>
+                <th>Tanggal Pinjam</th>
+                <th>Tanggal Kembali</th>
+                <th></th>
+                <th>Order</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
 @include('pengembalian.history.script')
 @endsection

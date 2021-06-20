@@ -180,7 +180,7 @@ class MasterController extends Controller
                         $q->where('status', '<', 4);
                     });
                 } else {
-                    $data->doesntHave('peminjamanDetails');
+                    $data->available();
                 }
             }
         } else {

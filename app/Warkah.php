@@ -40,7 +40,10 @@ class Warkah extends Model
 
     public function scopeAvailable($query)
     {
-        $query->doesntHave('peminjamanDetails');
+        $query->doesntHave('peminjamanDetails')
+                ->orWhereHas('peminjamanDetails', function($q) {
+                    $q->where('status', 4);
+                });
     }
 
     public function scopeNotAvailable($query)

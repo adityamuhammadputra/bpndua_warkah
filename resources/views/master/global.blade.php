@@ -205,7 +205,13 @@
 
         $(document).ready(function () {
             $('.select2').select2();
-            $('.panel-controls').html('<button class="btn btn-sm btn-mini btn-info" id="tambah-data" data-type="{{ Request::segment(2) }}"><i class="fa fa-plus-circle"></i> Tambah</button>');
+            var segment = '{{ Request::segment(2) }}';
+            var uploadButton = '';
+            if(segment == 'warkah') {
+                uploadButton = '<button class="btn btn-sm btn-mini btn-primary" style="margin-right: 10px;"><i class="fa fa-upload"></i> Upload Excel</button>';
+            }
+
+            $('.panel-controls').html(uploadButton + '<button class="btn btn-sm btn-mini btn-info" id="tambah-data" data-type="{{ Request::segment(2) }}"><i class="fa fa-plus-circle"></i> Tambah</button>');
 
             $('#tambah-data').on('click', function () {
                 var type = $(this).data('type');
