@@ -44,9 +44,9 @@ class HomeController extends Controller
         foreach($jenis as $j) :
             $peminjamanJenis [] = [
                 'name' => $j->name,
-                'count' => PeminjamanDetail::where('jenis', $j->name)->where('status', 3)->count(),
-                'dateMin' => datesOutput2(PeminjamanDetail::where('jenis', $j->name)->where('status', 3)->min('tanggal_pinjam')) ?? '-',
-                'dateMax' => datesOutput2(PeminjamanDetail::where('jenis', $j->name)->where('status', 3)->max('tanggal_pinjam')) ?? '-',
+                'count' => PeminjamanDetail::where('jenis', $j->name)->count(),
+                'dateMin' => datesOutput2(PeminjamanDetail::where('jenis', $j->name)->min('tanggal_pinjam')) ?? '-',
+                'dateMax' => datesOutput2(PeminjamanDetail::where('jenis', $j->name)->max('tanggal_pinjam')) ?? '-',
             ];
         endforeach;
 
