@@ -73,6 +73,7 @@ class MasterController extends Controller
                         $q->where('no_warkah','LIKE','%'.$query.'%')
                             ->orWhere('tahun','LIKE','%'.$query.'%');
                     })
+                    ->available()
                     ->limit(10)
                     ->get();
 
@@ -87,7 +88,7 @@ class MasterController extends Controller
         if (count($data)) {
             return $data;
         } else {
-            return ['value'=>'Data tidak ada','id'=>''];
+            return ['value'=>"$query tidak ditemukan atau tidak tersedia",'label' => 0];
         }
     }
 
@@ -167,7 +168,21 @@ class MasterController extends Controller
         if ($request->master == 'kegiatan') {
             $data = Kegiatan::query();
         } else if ($request->master == 'warkah') {
-            $data = Warkah::with('jenisWarkah')->where('kantor_id', userKantorId());
+            $data = Warkah::with('jenisWarkah')
+                        ->where('kantor_id', userKantorId());
+
+            if($request->jenis){
+                $data->where('jenis', $request->jenis);
+            }
+            if($request->status){
+                if($request->status == 2) {
+                    $data->whereHas('peminjamanDetails', function($q) {
+                        $q->where('status', '<', 4);
+                    });
+                } else {
+                    $data->doesntHave('peminjamanDetails');
+                }
+            }
         } else {
             $data = Pegawai::with('kegiatans');
         }

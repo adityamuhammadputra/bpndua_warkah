@@ -195,7 +195,17 @@
             },
             select:function(event, ui){
                 var idRow = event.target.attributes.datarow.value;
-                var idWarkah =ui.item.id;
+                if(!ui.item.id) {
+                    $('#no_warkah' + idRow).val('');
+                    $('#jenis' + idRow).val('');
+                    $('#album' + idRow).val('');
+                    $('#posisi' + idRow).val('');
+                    $('#warkah_id' + idRow).val('');
+                    $('#desa' + idRow).val('');
+                    return false;
+                }
+
+                var idWarkah = ui.item.id;
                 $.ajax({
                     type: "GET",
                     url: "{{ url('/api/show-autocomplete-warkah')}}",

@@ -38,4 +38,16 @@ class Warkah extends Model
         return $this->belongsTo(Kantor::class);
     }
 
+    public function scopeAvailable($query)
+    {
+        $query->doesntHave('peminjamanDetails');
+    }
+
+    public function scopeNotAvailable($query)
+    {
+        $query->whereHas('peminjamanDetails', function($q) {
+            $q->where('status', '<', 4);
+        });
+    }
+
 }

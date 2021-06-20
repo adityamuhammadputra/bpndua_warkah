@@ -3,6 +3,34 @@
 @section('level2', 'Warkah')
 @section('judul', 'Master Warkah')
 @section('content')
+
+<form method="post" data-toogle="validator" class="form-horzontal" id="form">
+    <div class="row">
+        <div class="col-md-2">
+            <div class="form-group">
+                <label class="control-label">Jenis Kegiatan</label>
+                <select id="jenis" class="form-control select2" required="true" name="jenis">
+                    <option value="">-- Pilih kegiatan --</option>
+                    @foreach ($data->jenis as $val)
+                        <option value="{{ $val->id }}">{{ $val->name }}</option>
+                    @endforeach
+                </select>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="form-group">
+                <label class="control-label">Status</label>
+                <select id="status" name="status" class="form-control select2">
+                    <option value="">-- Pilih status --</option>
+                    <option value="1">Tersedia</option>
+                    <option value="2">Tidak Tersedia</option>
+                </select>
+            </div>
+        </div>
+    </div>
+</form>
+<br>
+<br>
 <table class="table table-hover table-striped table-borderless" style="width:100%" id="data">
     <thead>
         <tr>
@@ -24,6 +52,14 @@
 @include('master.global')
 @push('scripts')
     <script>
+
+    $('#jenis, #status').on('change dp.change', function(){
+        var jenis = $('#jenis').val();
+        var status = $('#status').val();
+        newUrl  = "{{ url('datatable/master') }}?master=warkah&jenis=" + jenis + "&status=" + status;
+        $('#data').DataTable().ajax.url(newUrl).load();
+    });
+
     var Table;
     $(document).ready(function () {
           //datatables
@@ -50,12 +86,17 @@
                     data: 'album',
                 },
                 {
-                    data: 'no_warkah_tahun',
-                    searchable:false
+                    data: 'no_warkah',
+                    render: function (data, type, row) {
+                        if (data != null) {
+                            return row.no_warkah_tahun;
+                        }
+                        return '-';
+                    }
                 },
                 {data: 'jenis_warkah.name'},
-                {data: 'posisi', searchable:false},
-                {data: 'desa',orderable:false, searchable:false},
+                {data: 'posisi'},
+                {data: 'desa',orderable:false},
                 {data: 'status',orderable:false, searchable:false},
                 {data: 'action',orderable:false, searchable:false},
                 {data: 'updated_at',orderable:false, searchable:false, visible:false}
