@@ -85,7 +85,10 @@
             var i = $('#item_table tbody tr').length;
             i++;
             var html = '<tr class="row'+i+'">\
-                            <td><input type="text" name="newno_warkah[]" id="no_warkah'+i+'" class="form-control autocompleteWarkah no_warkah" datarow="'+i+'" placeholder="Nomor Warkah" required/></td>\
+                            <td>\
+                                <input type="text" name="newno_warkah[]" id="no_warkah'+i+'" class="form-control autocompleteWarkah no_warkah" datarow="'+i+'" placeholder="Nomor Warkah" required/>\
+                                <input type="hidden" name="newwarkah_id[]" id="warkah_id'+i+'">\
+                            </td>\
                             <td><input type="text" name="newjenis[]" id="jenis'+i+'" class="form-control jenis" placeholder="Jenis Warkah" readonly/></td>\
                             <td><input type="text" name="newalbum[]" id="album'+i+'" class="form-control" placeholder="Album" readonly/></td>\
                             <td><input type="text" name="newposisi[]" id="posisi'+i+'" class="form-control" placeholder="Posisi" readonly/></td>\
@@ -96,7 +99,7 @@
             desa(i, val='')
             autoCompleteWarkah()
             $(".no_warkah").focus();
-            $('.hidden-required').removeAttr('required');
+            // $('.hidden-required').removeAttr('required');
         });
 
         $(document).on('click', '.remove', function(){
@@ -212,6 +215,7 @@
                         $('#jenis' + i).val(dataWarkah.jenis);
                         $('#album' + i).val(dataWarkah.album);
                         $('#posisi' + i).val(dataWarkah.posisi);
+                        $('#warkah_id' + i).val(dataWarkah.warkah_id);
                         desa(i, dataWarkah.desa)
                         return false;
                         // $("#nama").val(datashow[0].nama);
@@ -298,7 +302,7 @@
                 $('#via').val(data.via);
                 $('#item_table tbody').empty();
                 $('.tombol-simpan').text('Ubah');
-                $('.hidden-required').removeAttr('required');
+                // $('.hidden-required').removeAttr('required');
                 $.each(data.peminjamandetail, function(k,val){
                     var i = k;
                     i++;
@@ -308,7 +312,10 @@
                     if(val.posisi == null) val.posisi = '';
                     if(val.desa == null) val.desa = '';
                     var html = '<tr class="row'+i+'">\
-                                    <td><input type="text" name="no_warkah['+i+']" id="no_warkah'+i+'" value="'+val.no_warkah+'" class="form-control autocompleteWarkah no_warkah" datarow="'+i+'" placeholder="Nomor Warkah" required/></td>\
+                                    <td>\
+                                        <input type="text" name="no_warkah['+i+']" id="no_warkah'+i+'" value="'+val.no_warkah+'" class="form-control autocompleteWarkah no_warkah" datarow="'+i+'" placeholder="Nomor Warkah" required/>\
+                                        <input type="hidden" name="warkah_id['+i+']" id="warkah_id'+i+'">\
+                                    </td>\
                                     <td><input type="text" name="jenis['+i+']" id="jenis'+i+'" value="'+val.jenis+'" class="form-control jenis" placeholder="Jenis Warkah" readonly/></td>\
                                     <td><input type="text" name="album['+i+']" id="album'+i+'" value="'+val.album+'" class="form-control" placeholder="Album" readonly/></td>\
                                     <td><input type="text" name="posisi['+i+']" id="posisi'+i+'" value="'+val.posisi+'" class="form-control" placeholder="Posisi" readonly/></td>\

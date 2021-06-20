@@ -54,6 +54,7 @@ class PeminjamanRegisterController extends Controller
             for($i = 0; $i < count($request->newno_warkah); $i++){
                 $datas = [
                     'no_warkah' => $request->newno_warkah[$i],
+                    'warkah_id' => $request->newwarkah_id[$i],
                     'peminjaman_id' => $peminjaman->id,
                     'kantor_id' => userKantorId(),
                     'kegiatan_id' => $request->kegiatan,
@@ -93,8 +94,8 @@ class PeminjamanRegisterController extends Controller
             'tanggal_jatuh_tempo' =>  datesInput($request->tanggal_kembali),
         ];
         $peminjaman = Peminjaman::find($id);
+        DB::beginTransaction();
         $peminjaman->update($data);
-
         if($request->no_warkah){
             foreach (array_keys($request->no_warkah) as $key) {
                 $detail = PeminjamanDetail::where('id', $key);
@@ -116,9 +117,11 @@ class PeminjamanRegisterController extends Controller
             }
         }
 
+
         if ($request->no_warkah != null){
             foreach($request->no_warkah as $i => $val){
                 $datanew[] = [
+                    'warkah_id' => $request->warkah_id[$key],
                     'no_warkah' => $request->no_warkah[$key],
                     'peminjaman_id' => $peminjaman->id,
                     'kantor_id' => userKantorId(),
@@ -136,6 +139,8 @@ class PeminjamanRegisterController extends Controller
             }
 
         }
+
+        DB::commit();
 
         return $peminjaman;
     }

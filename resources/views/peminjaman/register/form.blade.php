@@ -105,13 +105,16 @@
                         <th width="13%">Desa, Kecamatan <input type="checkbox" id="samakan-desa"></th>
                         <th width="5%" class="text-right">
                             <button type="button" name="add" class="btn btn-success add btn-sm pull-right"><i class="fa fa-plus text-white"></i></button>
-                            <input type="text" required class="hidden-required">
+                            {{-- <input type="text" required class="hidden-required"> --}}
                         </th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr class="row1">
-                        <td><input type="text" name="newno_warkah[]" id="no_warkah1" class="form-control autocompleteWarkah no_warkah" datarow="1" placeholder="Nomor Warkah" required/></td>
+                        <td>
+                            <input type="text" name="newno_warkah[]" id="no_warkah1" class="form-control autocompleteWarkah no_warkah" datarow="1" placeholder="Nomor Warkah" required/>
+                            <input type="hidden" name="newwarkah_id[]" id="warkah_id1">
+                        </td>
                         <td><input type="text" name="newjenis[]" id="jenis1" class="form-control jenis" placeholder="Jenis Warkah" readonly/></td>
                         <td><input type="text" name="newalbum[]" id="album1" class="form-control" placeholder="Album" readonly/></td>
                         <td><input type="text" name="newposisi[]" id="posisi1" class="form-control" placeholder="Posisi" readonly/></td>

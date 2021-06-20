@@ -101,6 +101,7 @@ class MasterController extends Controller
             'posisi' => $warkah->posisi,
             'desa' => $warkah->desa,
             'row' => $request->row,
+            'warkah_id' => $warkah->id,
         ];
         return json_encode($data);
     }
