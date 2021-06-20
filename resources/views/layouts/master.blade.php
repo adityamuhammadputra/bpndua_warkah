@@ -7,7 +7,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/joli/img/bpnlogo.png"/>
         <link rel="stylesheet" type="text/css" id="theme" href="/joli/css/theme-default.css"/>
-        <link rel="stylesheet" type="text/css" href="/css/custom-theme.css"/>
+        <link rel="stylesheet" type="text/css" href="/css/custom-theme.css?v=1"/>
 
         <meta name="csrf-token" content="{{ csrf_token() }}">
     </head>
