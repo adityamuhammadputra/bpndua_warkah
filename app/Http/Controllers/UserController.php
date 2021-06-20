@@ -22,6 +22,11 @@ class UserController extends Controller
         return view('user.index', compact('data'));
     }
 
+    public function user()
+    {
+        return view('user.user');
+    }
+
     public function store(Request $request)
     {
         Auth::user()->authorizeRoles(['admin']);

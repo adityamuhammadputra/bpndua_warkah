@@ -176,8 +176,61 @@
                     <!-- InstaWidget -->
                 </div>
 
-                <div class="panel-body panel-body-table" style="overflow: auto;">
+                <div class="panel-body panel-body-table" style="overflow: auto; max-height:310px;">
                     <div style="height:310px;">
+                        <div class="col-md-12">
+                            <!-- START TIMELINE -->
+                            <div class="timeline timeline-right" style="padding-top: 15px;">
+                                <div class="timeline-item timeline-item-right">
+                                    <div class="timeline-item-info">09:00</div>
+                                    <div class="timeline-item-icon"><span class="fa fa-users"></span></div>
+                                    <div class="timeline-item-content">
+                                        <div class="timeline-heading" style="padding-bottom: 10px;">
+                                            <img src="{{ auth()->user()->foto }}"/>
+                                            <a href="#"> {{ auth()->user()->name }} </a> <small class="text-muted pull-right">0 min ago</small>
+                                        </div>
+                                        <div class="timeline-body comments">
+                                            <div class="comment-item">
+                                                <p>View Dashboard page</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="timeline-item timeline-item-right">
+                                    <div class="timeline-item-info">10:00</div>
+                                    <div class="timeline-item-icon"><span class="fa fa-users"></span></div>
+                                    <div class="timeline-item-content">
+                                        <div class="timeline-heading" style="padding-bottom: 10px;">
+                                            <img src="{{ auth()->user()->foto }}"/>
+                                            <a href="#"> {{ auth()->user()->name }} </a> <small class="text-muted pull-right">60 min ago</small>
+                                        </div>
+                                        <div class="timeline-body comments">
+                                            <div class="comment-item">
+                                                <p>Validate Peminjaman Endang Ruhiyat, 2 data warkah</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="timeline-item timeline-item-right">
+                                    <div class="timeline-item-info">11:00</div>
+                                    <div class="timeline-item-icon"><span class="fa fa-users"></span></div>
+                                    <div class="timeline-item-content">
+                                        <div class="timeline-heading" style="padding-bottom: 10px;">
+                                            <img src="{{ auth()->user()->foto }}"/>
+                                            <a href="#"> {{ auth()->user()->name }} </a> <small class="text-muted pull-right">60 min ago</small>
+                                        </div>
+                                        <div class="timeline-body comments">
+                                            <div class="comment-item">
+                                                <p>Create Peminjaman Endang Ruhiyat, 3 data warkah</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- END TIMELINE ITEM -->
+                            </div>
+                        </div>
                         {{-- <a href="https://instawidget.net/v/user/kantah_kabbogor" id="link-00bde5fe2115a26b63fc304528cbc5558c6a14394402723d39656c6fe40dea91">@kantah_kabbogor</a> --}}
                         {{-- <script src="https://instawidget.net/js/instawidget.js?u=00bde5fe2115a26b63fc304528cbc5558c6a14394402723d39656c6fe40dea91&width=100%"></script> --}}
                     </div>
@@ -327,6 +380,10 @@
 	z-index: 9999;
 	background: url(load.gif) center no-repeat #fff;
 }
+
+.sorting_disabled {
+    padding-right: 0 !important;
+}
 </style>
 <div class="modal" id="modal_large" tabindex="-1" role="dialog" aria-labelledby="largeModalHead" aria-hidden="true">
     <div class="modal-dialog modal-lg">
@@ -370,10 +427,10 @@
                     <table class="table table-hover table-striped table-borderless table-responsive" id="data-modal" style="width:100%;">
                         <thead>
                             <tr>
-                                <th>No</th>
+                                <th style="width: 5px;">#</th>
                                 <th>Nama Peminjam</th>
                                 <th>Kegiatan</th>
-                                <th>Peminjaman Via</th>
+                                <th>No Warkah</th>
                                 <th>Tanggal Pinjam</th>
                                 <th>Tanggal Kembali</th>
                                 <th>Order</th>
@@ -394,13 +451,7 @@
 
     @push('scripts')
         <script>
-            var newUrl = '',status = '', kegiatan_id = '', nama_kegiatan, jenis_kegiatan;
-            $('.detailpinjam').on('click',  function(){
-                jenis_kegiatan = $(this).data('jenis');
-                kegiatan_id = $(this).data('kegiatanid');
-                status = $(this).data('status');
-                nama_kegiatan = $(this).data('nama_kegiatan');
-                newUrl  = "{{ url('api/modaldashboard') }}?kegiatan_id=" + kegiatan_id + "&status=" + status;
+            function detailPinjam (jenis_kegiatan, kegiatan_id, status, nama_kegiatan, newUrl, dasboard = false) {
                 $('#data-modal').DataTable().ajax.url(newUrl).load();
                 $('#largeModalHead').text(nama_kegiatan);
                 $('.labelfilter').text($(this).data('labelfilter'));
@@ -409,14 +460,26 @@
                 $('#tanggal_mulai, #tanggal_selesai').val('');
                 $('.dt-buttons').css('display','none');
                 $('#form').hide();
-                if(jenis_kegiatan=='peminjaman'){
-                    $('#data-modal').DataTable().column(5).visible(false);
-                    $('#data-modal').DataTable().column(4).visible(true);
-                }else{
-                    $('#data-modal').DataTable().column(4).visible(false);
-                    $('#data-modal').DataTable().column(5).visible(true);
+                if(dasboard == false) {
+                    if(jenis_kegiatan=='peminjaman'){
+                        $('#data-modal').DataTable().column(5).visible(false);
+                        $('#data-modal').DataTable().column(4).visible(true);
+                    }else{
+                        $('#data-modal').DataTable().column(4).visible(false);
+                        $('#data-modal').DataTable().column(5).visible(true);
+                    }
                 }
+
                 $('#modal_large').modal('show');
+            }
+            var newUrl = '',status = '', kegiatan_id = '', nama_kegiatan, jenis_kegiatan;
+            $('.detailpinjam').on('click',  function(){
+                jenis_kegiatan = $(this).data('jenis');
+                kegiatan_id = $(this).data('kegiatanid');
+                status = $(this).data('status');
+                nama_kegiatan = $(this).data('nama_kegiatan');
+                newUrl  = "{{ url('api/modaldashboard') }}?kegiatan_id=" + kegiatan_id + "&status=" + status;
+                detailPinjam (jenis_kegiatan, kegiatan_id, status, nama_kegiatan, newUrl)
             });
             $('.close').on('click', function(){
                 $('#form').slideToggle();
@@ -481,7 +544,10 @@
                         {data: 'id',name:'id'},
                         {data: 'peminjamans.nama'},
                         {data: 'kegiatans.nama_kegiatan'},
-                        {data: 'peminjamans.via'},
+                        {
+                            data: 'no_warkah',
+                            className: 'text-center'
+                        },
                         {data: 'tanggalpinjamstring', name:'tanggal_pinjam'},
                         {data: 'tanggalkembalistring', name:'tanggal_kembali'},
                         {data: 'created_at', orderable:false, visible:false, searchable:false},
@@ -533,7 +599,10 @@ var chart = new CanvasJS.Chart("chartContainer", {
 		indexLabelPlacement: "outside",
         dataPoints: <?php echo json_encode($grafik, JSON_NUMERIC_CHECK); ?>,
         click: function(e){
-            console.log(e.dataPoint.label + e.dataPoint.y)
+            // console.log(e.dataPoint.label + e.dataPoint.id + e.dataPoint.id)
+            newUrl  = "{{ url('api/modaldashboard') }}?kegiatan_id=" + kegiatan_id + "&status=" + status;
+            detailPinjam (jenis_kegiatan = null, kegiatan_id = e.dataPoint.id, status = null, e.dataPoint.label, newUrl, dashboad = true)
+
         }
 	}]
 });

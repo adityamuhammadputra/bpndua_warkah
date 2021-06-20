@@ -70,9 +70,9 @@
                             <li class="{{ (request()->is('user')) ? 'active' : '' }}">
                                 <a href="{{ url('user') }}"><span class="fa fa-code"></span> Profile</a>
                             </li>
-                            <li class="{{ (request()->is('logs')) ? 'active' : '' }}">
+                            {{-- <li class="{{ (request()->is('logs')) ? 'active' : '' }}">
                                 <a href="{{ url('logs') }}"><span class="fa fa-code"></span> Logs</a>
-                            </li>
+                            </li> --}}
                             <li class="{{ (request()->is('users')) ? 'active' : '' }}">
                                 <a href="{{ url('users') }}"><span class="fa fa-code"></span> Users</a>
                             </li>
@@ -133,9 +133,9 @@
                                     <a class="list-group-item" href="/profile">
                                         <span class="fa fa-user"></span> Profile
                                     </a>
-                                    <a class="list-group-item" href="/logs">
+                                    {{-- <a class="list-group-item" href="/logs">
                                         <span class="fa fa-list"></span> Logs
-                                    </a>
+                                    </a> --}}
                                 </div>
                             </div>
                         </li>

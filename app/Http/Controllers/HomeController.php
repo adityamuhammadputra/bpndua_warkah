@@ -54,7 +54,7 @@ class HomeController extends Controller
         $dashboard2 = Kegiatan::with('peminjamandetails')->whereIn('id', ['9','10','11','12','13','14','15','16'])->get();
         $dashboard3 = Kegiatan::with('peminjamandetails')->whereIn('id', ['17','18','19', '20', '21', '22', '23','25'])->get();
 
-        $grafik = DB::select(DB::raw('SELECT a.nama_kegiatan as label, COUNT(b.kegiatan_id) as y FROM master_kegiatan a
+        $grafik = DB::select(DB::raw('SELECT a.nama_kegiatan as label, COUNT(b.kegiatan_id) as y, a.id as id FROM master_kegiatan a
                                     LEFT JOIN peminjaman_detail b
                                     ON a.id = b.kegiatan_id
                                     GROUP BY a.nama_kegiatan'));
@@ -80,7 +80,10 @@ class HomeController extends Controller
 
     public function apimodal(Request $request)
     {
-        $data = PeminjamanDetail::with('peminjamans','kegiatans')->where('status', $request->status);
+        $data = PeminjamanDetail::with('peminjamans','kegiatans');
+        if($request->status != null)
+            $data->where('status', $request->status);
+
         if ($request->kegiatan_id != null) {
             $data->where('kegiatan_id', $request->kegiatan_id);
         }

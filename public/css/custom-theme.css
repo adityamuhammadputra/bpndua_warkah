@@ -52,6 +52,6 @@
     background: #131212;
 }
 
-div.profile {
+.xn-profile .profile {
     display: none !important;
 }

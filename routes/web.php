@@ -50,6 +50,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('api/user', 'UserController@api');
     Route::post('api/cekusers', 'UserController@cekusers');
 
+    Route::get('/user', 'UserController@user');
+
     Route::resource('userrole', 'UserRoleController')->except('create','show','update');
     Route::get('api/userrole', 'UserRoleController@apidata');
 
