@@ -160,7 +160,7 @@
                 <div class="panel-heading ui-draggable-handle">
                     <div class="panel-title-box">
                         <h3>Logs</h3>
-                        <span>Last Logs {{ auth()->user()->name }}</span>
+                        <span>10 Last Logs {{ auth()->user()->name }}</span>
                     </div>
                     <ul class="panel-controls" style="margin-top: 2px;">
                         <li><a href="#" class="panel-fullscreen"><span class="fa fa-expand"></span></a></li>

@@ -86,9 +86,9 @@
             i++;
             var html = '<tr class="row'+i+'">\
                             <td><input type="text" name="newno_warkah[]" id="no_warkah'+i+'" class="form-control autocompleteWarkah no_warkah" datarow="'+i+'" placeholder="Nomor Warkah" required/></td>\
-                            <td><input type="text" name="newjenis[]" id="jenis'+i+'" class="form-control jenis" placeholder="Jenis Warkah" /></td>\
-                            <td><input type="text" name="newalbum[]" id="album'+i+'" class="form-control" placeholder="Album" /></td>\
-                            <td><input type="text" name="newposisi[]" id="posisi'+i+'" class="form-control" placeholder="Posisi" /></td>\
+                            <td><input type="text" name="newjenis[]" id="jenis'+i+'" class="form-control jenis" placeholder="Jenis Warkah" readonly/></td>\
+                            <td><input type="text" name="newalbum[]" id="album'+i+'" class="form-control" placeholder="Album" readonly/></td>\
+                            <td><input type="text" name="newposisi[]" id="posisi'+i+'" class="form-control" placeholder="Posisi" readonly/></td>\
                             <td><select class="form-control desa" name="newdesa[]"  id="desa'+i+'""></select></td>\
                             <td width="5%" class="text-right"><button type="button" name="remove" class= "btn btn-danger remove btn-sm"><i class="fa fa-minus"></i></button></td>\
                         </tr>';
@@ -309,9 +309,9 @@
                     if(val.desa == null) val.desa = '';
                     var html = '<tr class="row'+i+'">\
                                     <td><input type="text" name="no_warkah['+i+']" id="no_warkah'+i+'" value="'+val.no_warkah+'" class="form-control autocompleteWarkah no_warkah" datarow="'+i+'" placeholder="Nomor Warkah" required/></td>\
-                                    <td><input type="text" name="jenis['+i+']" id="jenis'+i+'" value="'+val.jenis+'" class="form-control jenis" placeholder="Jenis Warkah" /></td>\
-                                    <td><input type="text" name="album['+i+']" id="album'+i+'" value="'+val.album+'" class="form-control" placeholder="Album" /></td>\
-                                    <td><input type="text" name="posisi['+i+']" id="posisi'+i+'" value="'+val.posisi+'" class="form-control" placeholder="Posisi" /></td>\
+                                    <td><input type="text" name="jenis['+i+']" id="jenis'+i+'" value="'+val.jenis+'" class="form-control jenis" placeholder="Jenis Warkah" readonly/></td>\
+                                    <td><input type="text" name="album['+i+']" id="album'+i+'" value="'+val.album+'" class="form-control" placeholder="Album" readonly/></td>\
+                                    <td><input type="text" name="posisi['+i+']" id="posisi'+i+'" value="'+val.posisi+'" class="form-control" placeholder="Posisi" readonly/></td>\
                                     <td><select value="'+val.desa+'" class="form-control desa" name="desa['+i+']"  id="desa'+i+'""></select></td>\
                                     <td width="5%" class="text-right"><button type="button" name="remove" class= "btn btn-danger remove btn-sm"><i class="fa fa-minus"></i></button></td>\
                                 </tr>';

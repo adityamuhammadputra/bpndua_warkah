@@ -74,6 +74,9 @@
             aLengthMenu: [[10,25, 50, 75, -1], [10,25, 50, 75, "Semua"]],
             iDisplayLength: 25,
             rowCallback: function( row, data, index ) {
+                @if (request()->w)
+                    $('#yadcf-filter--data-peminjamanmonitoring-4').val('1237/2021').keyup();
+                @endif
                 // if ( data.tanggalpinjamlima <= moment().format('YYYYMMDD') && data.status != 4)
                 if ( data.tanggaljatuhtempoorder <= moment().format('YYYYMMDD') && data.status != 4)
                 {
@@ -88,7 +91,8 @@
                 column_number: 4,
                 filter_type: "text",
                 filter_delay: 500,
-                filter_default_label: "No Warkah"
+                filter_default_label: "No Warkah",
+                // warkahPinjam
             },
             {
                 column_number: 8,

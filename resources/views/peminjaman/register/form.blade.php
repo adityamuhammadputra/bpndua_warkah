@@ -112,9 +112,9 @@
                 <tbody>
                     <tr class="row1">
                         <td><input type="text" name="newno_warkah[]" id="no_warkah1" class="form-control autocompleteWarkah no_warkah" datarow="1" placeholder="Nomor Warkah" required/></td>
-                        <td><input type="text" name="newjenis[]" id="jenis1" class="form-control jenis" placeholder="Jenis Warkah" /></td>
-                        <td><input type="text" name="newalbum[]" id="album1" class="form-control" placeholder="Album" /></td>
-                        <td><input type="text" name="newposisi[]" id="posisi1" class="form-control" placeholder="Posisi" /></td>
+                        <td><input type="text" name="newjenis[]" id="jenis1" class="form-control jenis" placeholder="Jenis Warkah" readonly/></td>
+                        <td><input type="text" name="newalbum[]" id="album1" class="form-control" placeholder="Album" readonly/></td>
+                        <td><input type="text" name="newposisi[]" id="posisi1" class="form-control" placeholder="Posisi" readonly/></td>
                         <td><select class="form-control desa" name="newdesa[]"  id="desa1"></select></td>
                         <td width="5%" class="text-right"><button type="button" name="remove" class= "btn btn-danger remove btn-sm"><i class="fa fa-minus"></i></button></td>
                     </tr>

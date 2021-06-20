@@ -18,6 +18,11 @@ class Warkah extends Model
         return $this->belongsTo('App\JenisWarkah', 'jenis', 'id');
     }
 
+    public function peminjamanDetails()
+    {
+        return $this->hasOne(PeminjamanDetail::class);
+    }
+
     public function getNoWarkahTahunAttribute()
     {
         return "$this->no_warkah/$this->tahun";

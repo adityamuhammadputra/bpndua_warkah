@@ -37,7 +37,10 @@ class PeminjamanValidasiController extends Controller
 
     public function apiPeminjamanValidasi(Request $request)
     {
-        $data = PeminjamanDetail::with('kegiatans','peminjamans')->where('status',2);
+        $data = PeminjamanDetail::with('kegiatans','peminjamans')
+                    ->where('kantor_id', userKantorId())
+                    ->where('status',2);
+
         if($request->kegiatan_id){
             $data->where('kegiatan_id', $request->kegiatan_id);
         }

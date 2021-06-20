@@ -6,7 +6,7 @@
 <table class="table table-hover table-striped table-borderless" style="width:100%" id="data">
     <thead>
         <tr>
-            <th style="width:1px">No.</th>
+            <th style="width:1px">#</th>
             <th>Nama Kegiatan</th>
             <th>Batas Waktu</th>
             <th></th>
@@ -19,7 +19,7 @@
 @push('scripts')
     <script>
     var Table;
-    $(document).ready(function () {       
+    $(document).ready(function () {
           //datatables
         $.ajaxSetup({
             headers: {

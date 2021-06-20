@@ -12,6 +12,7 @@
             <th>Jenis</th>
             <th>Posisi Penyimpanan</th>
             <th>Desa Kecamatan</th>
+            <th>Status</th>
             <th></th>
             <th>Order</th>
         </tr>
@@ -55,10 +56,11 @@
                 {data: 'jenis_warkah.name'},
                 {data: 'posisi', searchable:false},
                 {data: 'desa',orderable:false, searchable:false},
+                {data: 'status',orderable:false, searchable:false},
                 {data: 'action',orderable:false, searchable:false},
                 {data: 'updated_at',orderable:false, searchable:false, visible:false}
             ],
-            order: [[ 7, 'desc' ]],
+            order: [[ 8, 'desc' ]],
             aLengthMenu: [[10,25, 50, 75, -1], [10,25, 50, 75, "Semua"]],
             iDisplayLength: 15,
         }),

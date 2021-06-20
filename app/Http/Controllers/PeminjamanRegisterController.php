@@ -251,7 +251,10 @@ class PeminjamanRegisterController extends Controller
 
     public function apiPeminjaman()
     {
-        $data = Peminjaman::with('kegiatan','peminjamandetail')->where('status',1);
+        $data = Peminjaman::with('kegiatan','peminjamandetail')
+                ->where('kantor_id', userKantorId())
+                ->where('status', 1);
+
         return Datatables::of($data)
             ->addColumn('action',function($data){
                 return ' <span class="label label-danger label-borok">' . $data->jumlahpinjam . '</span><a class ="btn btn-info btn-sm alertshow" id="'.$data->id.'" data-id="'.$data->id.'" data-judul="Peminjaman '.$data->nama.'" data-head="Cetak dan Validasi ke Peminjaman Validasi" data-type="Cetak"><em class="fa fa-print">
@@ -280,8 +283,8 @@ class PeminjamanRegisterController extends Controller
     public function cetakall()
     {
         ini_set('max_execution_time', '120');
-        dd(phpinfo());
-        exit;
+        // dd(phpinfo());
+        // exit;
         $test = Peminjaman::where('status', '!=', 1)
         ->skip(3605)
         ->take(1000)

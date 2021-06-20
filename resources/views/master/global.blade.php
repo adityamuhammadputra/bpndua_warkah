@@ -73,14 +73,15 @@
                         @endif
 
                         <div class="warkah">
-                            <div class="form-group">
+
+                            <div class="form-group single" style="display: none;">
                                 <label class="col-sm-4 control-label" for="nama_kegiatan">Nomor Warkah</label>
                                 <div class="col-sm-6">
-                                    <input type="text" placeholder="Nomor Warkah" id="no_warkah" name="no_warkah" class="form-control" required>
+                                    <input type="text" placeholder="Nomor Warkah" id="no_warkah" name="no_warkah" class="form-control">
                                 </div>
                                 @if (isset($data))
                                 <div class="col-sm-2">
-                                    <select name="tahun"  id="tahun" class="form-control select2" required>
+                                    <select name="tahun"  id="tahun" class="form-control select2">
                                         @foreach ($data->tahun as $val)
                                             <option value="{{ $val->name }}" {{ date('Y') == $val->name ? 'selected' : '' }}>
                                                 {{ $val->name }}
@@ -90,18 +91,14 @@
                                 </div>
                                 @endif
                             </div>
-                            @if (isset($data))
+
                             <div class="form-group">
                                 <label class="col-sm-4 control-label" for="nama_kegiatan">Album</label>
                                 <div class="col-sm-8">
-                                    <select name="album"  id="album" class="form-control select2" required>
-                                        <option value="" disabled>-- Pilih Album --</option>
-                                        @foreach ($data->album as $valAlbum)
-                                            <option value="{{ $valAlbum->name }}">{{ $valAlbum->name }}</option>
-                                        @endforeach
-                                    </select>
+                                    <input type="number" name="album"  id="album" class="form-control" min="1" required>
                                 </div>
                             </div>
+                            @if (isset($data))
                             <div class="form-group">
                                 <label class="col-sm-4 control-label" for="kegiatan_id">jenis</label>
                                 <div class="col-sm-8">
@@ -126,7 +123,7 @@
                                 <div class="col-sm-4 col-sm-offset-4">
                                     <select name="rak"  id="rak" class="form-control select2" required>
                                         <option value="">-- Rak --</option>
-                                        @foreach (range(1, 10) as $val)
+                                        @foreach (range('A', 'Z') as $val)
                                             <option value="{{ $val}}">{{ $val }}</option>
                                         @endforeach
                                     </select>
@@ -151,6 +148,34 @@
                                 </div>
                             </div>
                             @endif
+
+                            <div class="form-group multiple">
+                                <label class="col-sm-4 control-label" for="nama_kegiatan">Nomor Warkah</label>
+                                <div class="col-sm-5">
+                                    <input type="text" placeholder="Nomor Warkah" id="no_warkah_multi" name="no_warkah_multi[]" class="form-control">
+                                </div>
+
+                                @if (isset($data))
+                                <div class="col-sm-2">
+                                    <select name="tahun"  id="tahun" class="form-control select2">
+                                        @foreach ($data->tahun as $val)
+                                            <option value="{{ $val->name }}" {{ date('Y') == $val->name ? 'selected' : '' }}>
+                                                {{ $val->name }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                @endif
+                                <div class="col-sm-1">
+                                    <button type="button" class="btn btn-sm bnt-primary newRow" style="padding-right: 0px;">
+                                        <i class="fa fa-plus"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="multiples">
+
+                            </div>
+
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -162,7 +187,22 @@
     </div>
 @push('scripts')
 
- <script>
+    <script>
+        $(document).on('click', '.newRow', function(){
+            var html = '<div class="form-group">\
+                            <label class="col-sm-4 control-label" for="nama_kegiatan"></label>\
+                            <div class="col-sm-7">\
+                                <input type="text" placeholder="Nomor Warkah" id="no_warkah_multi" name="no_warkah_multi[]" class="form-control" required>\
+                            </div>\
+                            <div class="col-sm-1">\
+                                <button type="button" class="btn btn-sm bnt-primary newRow" style="padding-right: 0px;">\
+                                    <i class="fa fa-minus"></i>\
+                                </button>\
+                            </div>\
+                        </div>';
+            $('.multiples').append(html);
+        })
+
         $(document).ready(function () {
             $('.select2').select2();
             $('.panel-controls').html('<button class="btn btn-sm btn-mini btn-info" id="tambah-data" data-type="{{ Request::segment(2) }}"><i class="fa fa-plus-circle"></i> Tambah</button>');
@@ -179,6 +219,8 @@
                     $('.modal-title').html('Tambah Warkah');
                     $('.peminjam').remove();
                     $('.kegiatan').remove();
+                    $('.single').hide();
+                    $('.multiple, .multiples').show();
                 } else {
                     $('.modal-title').html('Tambah Peminjam');
                     $('.kegiatan').remove();
@@ -198,6 +240,7 @@
                 data:{
                     'no_warkah' : $('#no_warkah').val(),
                     'tahun' : $('#tahun').val(),
+                    'id' : $('#id').val(),
                 },
                 success: function (data) {
                     if(data > 0) {
@@ -284,6 +327,8 @@
                         $('.warkah').remove();
                     } else if(type == 'warkah'){
                         $('.modal-title').html('Edit Warkah ' + data.no_warkah_tahun);
+                        $('.single').show();
+                        $('.multiple, .multiples').hide();
                         $.each(data,function(index,obj){
                             delete data.created_at
                             delete data.updated_at

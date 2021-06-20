@@ -50,8 +50,16 @@ class MasterController extends Controller
     public function checkWarkah(Request $request)
     {
         $warkahCount = Warkah::where('no_warkah', $request->no_warkah)
-                        ->where('tahun', $request->tahun)
-                        ->count();
+                ->where('tahun', $request->tahun)
+                ->count();
+
+        if($request->id) :
+            $warkahOld = Warkah::find($request->id);
+            return $warkahOld;
+            if($request->no_warkah . $request->tahun == $warkahOld->no_warkah . $warkahOld->tahun) {
+                $warkahCount = 0;
+            }
+        endif;
 
         return response()->json($warkahCount, 200);
     }
@@ -98,13 +106,20 @@ class MasterController extends Controller
     }
     public function store(Request $request)
     {
-        $input = $request->except('_method', '_token', 'type');
+        $input = $request->except('_method', '_token', 'type', 'no_warkah', 'no_warkah_multi');
 
         if ($request->type == 'kegiatan') {
             Kegiatan::create($input);
         } else if ($request->type == 'warkah') {
-            Warkah::create($input);
+            if($request->no_warkah_multi) {
+                foreach($request->no_warkah_multi as $val) :
+                    $input['no_warkah'] = $val;
+                    $input['kantor_id'] = userKantorId();
+                    Warkah::create($input);
+                endforeach;
+            }
         } else {
+            $input['kantor_id'] = userKantorId();
             Pegawai::create($input);
         }
         return $request->type.' Berhasil di Simpan';
@@ -123,7 +138,7 @@ class MasterController extends Controller
 
     public function update(Request $request, $id)
     {
-        $input = $request->except('_method', '_token', 'type', 'id');
+        $input = $request->except('_method', '_token', 'type', 'id', 'no_warkah_multi');
         if ($request->type == 'kegiatan') {
             Kegiatan::find($id)->update($input);
         } else if ($request->type == 'warkah') {
@@ -157,6 +172,31 @@ class MasterController extends Controller
         }
 
         return DataTables::of($data)
+            ->addColumn('status', function ($data) use ($request) {
+                $status = '';
+                if ($request->master == 'warkah') {
+                    if($data->peminjamanDetails && $data->peminjamanDetails->status < 4)
+                        $status = '<a class="label label-danger" style="text-decoration: line-through;"
+                                        target="_blank"
+                                        href="/peminjaman/monitoring?w=' . $data->id . '">
+                                        Tersedia
+                                   </a>';
+                    else
+                        $status = '<span class="label label-warning">Tersedia</span>';
+                }
+                return $status;
+            })
+            ->addColumn('kantor', function ($data) use ($request) {
+                $kantor = '';
+                if ($request->master == 'peminjam') {
+                    if($data->kantor->id == '1')
+                        $kantor = '<span class="label label-success">'.$data->kantor->name.'</span>';
+                    else {
+                        $kantor = '<span class="label label-warning">'.$data->kantor->name.'</span>';
+                    }
+                }
+                return $kantor;
+            })
             ->addColumn('action', function ($data) use ($request) {
                 if ($request->master == 'peminjam') {
                     $datanama = $data->nama;
@@ -168,7 +208,7 @@ class MasterController extends Controller
                 return  ' <a id="editData" data-id="' . $data->id . '" data-type="' . $request->master . '" data-nama="'.$datanama.'" class="btn btn-xs btn-mini btn-primary"><i class="fa fa-pencil"></i></a>' .
                     ' <a id="deleteData" data-id="' . $data->id . '" data-type="' . $request->master . '" data-nama="'.$datanama.'" class="btn btn-xs btn-mini btn-danger"> <i class="fa fa-times-circle"></i></a>';
             })
-            ->rawColumns(['action'])
+            ->rawColumns(['action', 'status', 'kantor'])
             ->make(true);
     }
 }
