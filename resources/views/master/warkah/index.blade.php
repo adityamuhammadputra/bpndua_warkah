@@ -14,6 +14,17 @@
     <div class="row">
         <div class="col-md-2">
             <div class="form-group">
+                <label class="control-label">Kantor</label>
+                <select id="kantor" name="kantor" class="form-control select2">
+                    <option value="">-- Pilih Kantor --</option>
+                    @foreach ($data->kantor as $kantor)
+                        <option value="{{ $kantor->id }}">{{ $kantor->name }}</option>
+                    @endforeach
+                </select>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="form-group">
                 <label class="control-label">Jenis Kegiatan</label>
                 <select id="jenis" class="form-control select2" required="true" name="jenis">
                     <option value="">-- Pilih kegiatan --</option>
@@ -33,8 +44,8 @@
                 </select>
             </div>
         </div>
-        <div class="col-md-2 col-md-offset-6">
-        </div>
+
+
     </div>
 </form>
 <br>
@@ -43,6 +54,7 @@
     <thead>
         <tr>
             <th style="width:1px">#</th>
+            <th>Kantor</th>
             <th>Album</th>
             <th>No Warkah</th>
             <th>Jenis</th>
@@ -61,10 +73,11 @@
 @push('scripts')
     <script>
 
-    $('#jenis, #status').on('change dp.change', function(){
+    $('#jenis, #status, #kantor').on('change dp.change', function(){
         var jenis = $('#jenis').val();
         var status = $('#status').val();
-        newUrl  = "{{ url('datatable/master') }}?master=warkah&jenis=" + jenis + "&status=" + status;
+        var kantor = $('#kantor').val();
+        newUrl  = "{{ url('datatable/master') }}?master=warkah&jenis=" + jenis + "&status=" + status+ "&kantor=" + kantor;
         $('#data').DataTable().ajax.url(newUrl).load();
     });
 
@@ -102,6 +115,9 @@
                     className:'text-center',
                     searchable: false,
                     orderable:false,
+                },
+                {
+                    data: 'kantor',
                 },
                 {
                     data: 'album',

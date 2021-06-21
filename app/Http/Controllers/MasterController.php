@@ -113,6 +113,7 @@ class MasterController extends Controller
 
     public function uploadExcel(Request $request)
     {
+        ini_set('memory_limit', -1);
         $param = $request->only('kantor_id', 'jenis', 'ruang');
         $param['fileName'] = $request->file('files')->getClientOriginalName();
         Excel::import(new WarkahImport($param), request()->file('files'));
@@ -182,12 +183,16 @@ class MasterController extends Controller
         if ($request->master == 'kegiatan') {
             $data = Kegiatan::query();
         } else if ($request->master == 'warkah') {
-            $data = Warkah::with('jenisWarkah')
-                        ->where('kantor_id', userKantorId());
+            $data = Warkah::with('jenisWarkah');
+                        // ->where('kantor_id', userKantorId());
 
             if($request->jenis){
                 $data->where('jenis', $request->jenis);
             }
+            if($request->kantor){
+                $data->where('kantor_id', $request->kantor);
+            }
+
             if($request->status){
                 if($request->status == 2) {
                     $data->whereHas('peminjamanDetails', function($q) {
@@ -218,13 +223,13 @@ class MasterController extends Controller
             })
             ->addColumn('kantor', function ($data) use ($request) {
                 $kantor = '';
-                if ($request->master == 'peminjam') {
-                    if($data->kantor->id == '1')
-                        $kantor = '<span class="label label-success">'.$data->kantor->name.'</span>';
-                    else {
-                        $kantor = '<span class="label label-warning">'.$data->kantor->name.'</span>';
-                    }
+                // if ($request->master == 'peminjam') {
+                if($data->kantor->id == '1')
+                    $kantor = '<span class="label label-success">'.$data->kantor->name.'</span>';
+                else {
+                    $kantor = '<span class="label label-warning">'.$data->kantor->name.'</span>';
                 }
+                // }
                 return $kantor;
             })
             ->addColumn('action', function ($data) use ($request) {

@@ -3,10 +3,14 @@
 namespace App\Imports;
 
 use App\Warkah;
+use Maatwebsite\Excel\Concerns\SkipsOnError;
+use Maatwebsite\Excel\Concerns\SkipsOnFailure;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithStartRow;
+use Maatwebsite\Excel\Validators\Failure;
+use Throwable;
 
-class WarkahImport implements ToModel, WithStartRow
+class WarkahImport implements ToModel, WithStartRow, SkipsOnError, SkipsOnFailure
 {
     protected $request;
     public function __construct($request)
@@ -33,5 +37,15 @@ class WarkahImport implements ToModel, WithStartRow
     public function startRow(): int
     {
         return 2;
+    }
+
+    public function onError(Throwable $error)
+    {
+        dd($error);
+    }
+
+    public function onFailure(Failure ...$failures) //
+    {
+        dd($failures);
     }
 }
