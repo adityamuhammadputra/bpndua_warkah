@@ -26,10 +26,21 @@
         <div class="col-md-2">
             <div class="form-group">
                 <label class="control-label">Jenis Kegiatan</label>
-                <select id="jenis" class="form-control select2" required="true" name="jenis">
+                <select id="jenis" class="form-control select2" name="jenis">
                     <option value="">-- Pilih kegiatan --</option>
                     @foreach ($data->jenis as $val)
                         <option value="{{ $val->id }}">{{ $val->name }}</option>
+                    @endforeach
+                </select>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="form-group">
+                <label class="control-label">Desa, Kecamatan</label>
+                <select id="desafilter" class="form-control select2" name="desa">
+                    <option value="">-- Pilih Desa --</option>
+                    @foreach ($data->desa as $des)
+                        <option value="{{ $des->name }}, {{ $des->kecamatan  }}">{{ $des->name }}, {{ $des->kecamatan  }}</option>
                     @endforeach
                 </select>
             </div>
@@ -73,11 +84,12 @@
 @push('scripts')
     <script>
 
-    $('#jenis, #status, #kantor').on('change dp.change', function(){
+    $('#jenis, #status, #kantor, #desafilter').on('change dp.change', function(){
         var jenis = $('#jenis').val();
         var status = $('#status').val();
         var kantor = $('#kantor').val();
-        newUrl  = "{{ url('datatable/master') }}?master=warkah&jenis=" + jenis + "&status=" + status+ "&kantor=" + kantor;
+        var desa = $('#desafilter').val();
+        newUrl  = "{{ url('datatable/master') }}?master=warkah&jenis=" + jenis + "&status=" + status + "&kantor=" + kantor + "&desa=" + desa;
         $('#data').DataTable().ajax.url(newUrl).load();
     });
 

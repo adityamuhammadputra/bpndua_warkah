@@ -189,6 +189,11 @@ class MasterController extends Controller
             if($request->jenis){
                 $data->where('jenis', $request->jenis);
             }
+
+            if($request->desa){
+                $data->where('desa', $request->desa);
+            }
+
             if($request->kantor){
                 $data->where('kantor_id', $request->kantor);
             }
