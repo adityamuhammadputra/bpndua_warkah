@@ -91,6 +91,10 @@ Route::group(['middleware' => ['auth']], function () {
         return $response;
     });
 
+    Route::get('/phpini', function () {
+        phpinfo();
+    });
+
 });
 
 
