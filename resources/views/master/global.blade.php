@@ -389,6 +389,10 @@
                     $('.btn-kirim-upload').html('kirim')
                     $('#modal_upload').modal('hide');
                     $('#data').dataTable().api().ajax.reload()
+                },
+                error: function () {
+                    alert('Terjadi kesalahan, silahkan muat ulang halaman');
+                    window.location.reload();
                 }
             })
             return false;
