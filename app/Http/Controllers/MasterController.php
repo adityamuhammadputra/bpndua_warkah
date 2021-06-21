@@ -224,10 +224,10 @@ class MasterController extends Controller
             ->addColumn('kantor', function ($data) use ($request) {
                 $kantor = '';
                 // if ($request->master == 'peminjam') {
-                if($data->kantor->id == '1')
+                if(isset($data->kantor) && $data->kantor->id == '1')
                     $kantor = '<span class="label label-success">'.$data->kantor->name.'</span>';
                 else {
-                    $kantor = '<span class="label label-warning">'.$data->kantor->name.'</span>';
+                    $kantor = '<span class="label label-warning">'.optional($data->kantor)->name.'</span>';
                 }
                 // }
                 return $kantor;

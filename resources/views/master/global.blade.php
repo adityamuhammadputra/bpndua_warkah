@@ -203,7 +203,7 @@
                     <div class="modal-body">
 
 
-                        @if ($data)
+                        @if (isset($data))
                         <div class="form-group">
                             <label class="col-sm-4 control-label" for="unit_kerja">Jenis Warkah</label>
                             <div class="col-sm-8">
