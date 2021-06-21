@@ -58,6 +58,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('master/kegiatan', 'MasterController@indexkegiatan');
     Route::get('master/peminjam', 'MasterController@indexpeminjam');
     Route::get('master/warkah', 'MasterController@indexWarkah');
+    Route::post('master/warkah/upload-excel','MasterController@uploadExcel');
+
     Route::post('datatable/master', 'MasterController@datatable');
     Route::get('master/{id}/edit/{type}', 'MasterController@edit');
     Route::resource('master', 'MasterController')->only('store', 'update');
@@ -65,6 +67,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('api/check-warkah','MasterController@checkWarkah');
     Route::get('api/autocomplete-warkah','MasterController@autoComplete');
     Route::get('api/show-autocomplete-warkah','MasterController@showAutoComplete');
+
+
 
 
 

@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Album;
 use App\Desa;
+use App\Imports\WarkahImport;
 use App\JenisWarkah;
+use App\Kantor;
 use App\Kegiatan;
 use App\Pegawai;
 use App\Ruang;
@@ -15,6 +17,7 @@ use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 
 use Illuminate\Support\Facades\Auth;
+use Maatwebsite\Excel\Facades\Excel;
 
 class MasterController extends Controller
 {
@@ -41,6 +44,7 @@ class MasterController extends Controller
             'tahun' => Tahun::where('status', 1)->get(),
             'album' => Album::all(),
             'ruang' => Ruang::all(),
+            'kantor' => Kantor::get(),
             'desa' => Desa::orderBy('name')->get(),
         ];
 
@@ -106,6 +110,16 @@ class MasterController extends Controller
         ];
         return json_encode($data);
     }
+
+    public function uploadExcel(Request $request)
+    {
+        $param = $request->only('kantor_id', 'jenis', 'ruang');
+        $param['fileName'] = $request->file('files')->getClientOriginalName();
+        Excel::import(new WarkahImport($param), request()->file('files'));
+
+        return 'Berhasil disimpan';
+    }
+
     public function store(Request $request)
     {
         $input = $request->except('_method', '_token', 'type', 'no_warkah', 'no_warkah_multi');

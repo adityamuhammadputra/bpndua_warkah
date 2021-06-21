@@ -13,16 +13,16 @@
         background: #ffffff !important;
     }
    </style>
-   <div class="modal" id="modal_large" role="dialog" aria-labelledby="largeModalHead" aria-hidden="true">
-         <div class="modal-dialog">
-             <div class="modal-content">
-                 <div class="modal-header">
+    <div class="modal" id="modal_large" role="dialog" aria-labelledby="largeModalHead" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                          <span aria-hidden="true">&times;</span>
                      </button>
                      <h4 class="modal-title" id="largeModalHead">Tambah</h4>
-                 </div>
-                 <form method="post" class="form-horzontal form-user">
+                </div>
+                <form method="post" class="form-horzontal form-user">
                      @method('POST')
                      @csrf
                     <input type="hidden" id="id" name="id">
@@ -131,7 +131,7 @@
                                 <div class="col-sm-4">
                                     <select name="baris"  id="baris" class="form-control select2" required>
                                         <option value="">-- Baris --</option>
-                                        @foreach (range(1, 10) as $val)
+                                        @foreach (range(1, 25) as $val)
                                             <option value="{{ $val}}">{{ $val }}</option>
                                         @endforeach
                                     </select>
@@ -181,13 +181,87 @@
                     <div class="modal-footer">
                          <button type="submit" class="btn btn-default btn-kirim">Simpan</button>
                     </div>
-                 </form>
-             </div>
-         </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="modal" id="modal_upload" role="dialog" aria-labelledby="largeModalHead" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title" id="largeModalHead">Upload Warkah Excel</h4>
+                </div>
+                <form method="post" class="form-horzontal form-upload" enctype="multipart/form-data">
+                    @method('POST')
+                    @csrf
+                    <div class="modal-body">
+
+
+                        @if ($data)
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label" for="unit_kerja">Jenis Warkah</label>
+                            <div class="col-sm-8">
+                                <select name="jenis" id="jenis" class="form-control">
+                                    @foreach ($data->jenis as $jen)
+                                        <option value="{{ $jen->id }}">{{ $jen->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label" for="unit_kerja">Simpan untuk Kantor</label>
+                            <div class="col-sm-8">
+                                <select name="kantor_id" id="kantor_id" class="form-control">
+                                    @foreach ($data->kantor as $k)
+                                        <option value="{{ $k->id }}" {{ (userKantorId() == $k->id) ? 'selected' : '' }}>{{ $k->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label" for="unit_kerja">Ruang</label>
+                            <div class="col-sm-8">
+                                <select name="ruang" id="ruang" class="form-control">
+                                    @foreach ($data->ruang as $r)
+                                        <option value="{{ $r->name }}">{{ $r->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        @endif
+
+                        <div class="form-group" style="margin-bottom: 15px;">
+                            <label class="col-sm-4 control-label" for="nip">File Excel</label>
+                            <div class="col-sm-8">
+                                <input type="file" id="files" name="files" class="form-control" required>
+                                <a class="pull-right" href="/upload/contoh.xlsx" target="_blank">Lihat contoh file</a>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                         <button type="submit" class="btn btn-default btn-kirim-upload">Simpan</button>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
 @push('scripts')
 
     <script>
+
+        $(document).on('click', '.btn-upload-excel', function(){
+            $('#modal_upload').modal('show');
+        })
+
         $(document).on('click', '.newRow', function(){
             var html = '<div class="form-group">\
                             <label class="col-sm-4 control-label" for="nama_kegiatan"></label>\
@@ -208,7 +282,7 @@
             var segment = '{{ Request::segment(2) }}';
             var uploadButton = '';
             if(segment == 'warkah') {
-                uploadButton = '<button class="btn btn-sm btn-mini btn-primary" style="margin-right: 10px;"><i class="fa fa-upload"></i> Upload Excel</button>';
+                uploadButton = '<button class="btn btn-sm btn-mini btn-primary btn-upload-excel" style="margin-right: 10px;"><i class="fa fa-upload"></i> Upload Excel</button>';
             }
 
             $('.panel-controls').html(uploadButton + '<button class="btn btn-sm btn-mini btn-info" id="tambah-data" data-type="{{ Request::segment(2) }}"><i class="fa fa-plus-circle"></i> Tambah</button>');
@@ -238,6 +312,8 @@
                 $('#modal_large').modal('show');
             })
         })
+
+
 
         let cekWarkah = (url) => {
             $.ajax({
@@ -295,8 +371,35 @@
             })
             return false;
         }
+
+        let submitUpload = () => {
+            $.ajax({
+                url: "/master/warkah/upload-excel",
+                type: 'POST',
+                data: new FormData($(".form-upload")[0]),
+                processData: false,
+                contentType: false,
+                beforeSend: function(){
+                    $('.btn-kirim-upload').html('loading...')
+                    $('.btn-kirim-upload').attr('disabled', true)
+                },
+                success: function (data) {
+                    toastr["success"](data);
+                    $('.form-upload')[0].reset()
+                    $('.btn-kirim-upload').html('kirim')
+                    // $('#modal_upload').modal('hide');
+                }
+            })
+            return false;
+        }
         //simpan
-         $('.form-user').on('submit', function (e) {
+
+        $('.form-upload').on('submit', function (e) {
+            e.preventDefault();
+            submitUpload();
+        })
+
+        $('.form-user').on('submit', function (e) {
             e.preventDefault();
             var url, id = $('#id').val();
             if(id == '')
@@ -342,6 +445,7 @@
                             delete data.posisi
                             delete data.kantor_id
                             delete data.kantor
+                            delete data.file_name
                             $(eval(index)).val(obj)
                             $(eval(index)).val(obj).trigger('change')
                         });
