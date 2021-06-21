@@ -302,7 +302,7 @@
             language: {
                     lengthMenu: "Menampilkan _MENU_",
                     zeroRecords: "Data yang anda cari tidak ada, Silahkan masukan keyword lainnya",
-                    info: "Halaman _PAGE_ dari _PAGES_ Halaman",
+                    info: "Data _MAX_ | Halaman _PAGE_ dari _PAGES_ Halaman",
                     infoEmpty: "-",
                     infoFiltered: "(dari _MAX_ total data)",
                     loadingRecords: "Silahkan Tunggu...",
