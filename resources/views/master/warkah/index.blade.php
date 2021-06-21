@@ -115,8 +115,8 @@
                         return '-';
                     }
                 },
-                {data: 'jenis_warkah.name'},
-                {data: 'posisi'},
+                {data: 'jenis_warkah.name', orderable:false, searchable:false},
+                {data: 'posisi', orderable:false, searchable:false},
                 {data: 'desa',orderable:false},
                 {data: 'status',orderable:false, searchable:false},
                 {data: 'action',orderable:false, searchable:false},

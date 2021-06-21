@@ -242,7 +242,7 @@
                             <label class="col-sm-4 control-label" for="nip">File Excel</label>
                             <div class="col-sm-8">
                                 <input type="file" id="files" name="files" class="form-control" required>
-                                <a class="pull-right" href="/upload/contoh.xlsx" target="_blank">Lihat contoh file</a>
+                                <a class="pull-right" href="/upload/contoh.xlsx" target="_blank">Lihat template file</a>
                             </div>
                         </div>
 

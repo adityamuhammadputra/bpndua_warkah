@@ -208,7 +208,7 @@ class MasterController extends Controller
                     if($data->peminjamanDetails && $data->peminjamanDetails->status < 4)
                         $status = '<a class="label label-danger" style="text-decoration: line-through;"
                                         target="_blank"
-                                        href="/peminjaman/monitoring?w=' . $data->id . '">
+                                        href="/peminjaman/monitoring?w=' . $data->peminjamanDetails->no_warkah . '">
                                         Tersedia
                                    </a>';
                     else

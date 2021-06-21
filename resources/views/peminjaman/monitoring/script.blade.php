@@ -74,9 +74,7 @@
             aLengthMenu: [[10,25, 50, 75, -1], [10,25, 50, 75, "Semua"]],
             iDisplayLength: 25,
             rowCallback: function( row, data, index ) {
-                @if (request()->w)
-                    $('#yadcf-filter--data-peminjamanmonitoring-4').val('1237/2021').keyup();
-                @endif
+
                 // if ( data.tanggalpinjamlima <= moment().format('YYYYMMDD') && data.status != 4)
                 if ( data.tanggaljatuhtempoorder <= moment().format('YYYYMMDD') && data.status != 4)
                 {
@@ -110,7 +108,15 @@
 
         setInterval( function () {
             Tablee.ajax.reload( null, false ); // user paging is not reset on reload
-        }, 5000 );
+        }, 7000 );
+
+        setTimeout(function(){
+        @if (request()->w)
+            $('#yadcf-filter--data-peminjamanmonitoring-4').val('{{ request()->w }}').keyup();
+        @endif
+        }, 1000);
+
+
         // $('.page-container').addClass('page-navigation-toggled');
 
 
