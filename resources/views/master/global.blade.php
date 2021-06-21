@@ -387,7 +387,8 @@
                     toastr["success"](data);
                     $('.form-upload')[0].reset()
                     $('.btn-kirim-upload').html('kirim')
-                    // $('#modal_upload').modal('hide');
+                    $('#modal_upload').modal('hide');
+                    $('#data').dataTable().api().ajax.reload()
                 }
             })
             return false;
