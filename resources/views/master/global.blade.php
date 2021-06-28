@@ -387,6 +387,7 @@
                     toastr["success"](data);
                     $('.form-upload')[0].reset()
                     $('.btn-kirim-upload').html('kirim')
+                    $('.btn-kirim-upload').attr('disabled', false)
                     $('#modal_upload').modal('hide');
                     $('#data').dataTable().api().ajax.reload()
                 },
