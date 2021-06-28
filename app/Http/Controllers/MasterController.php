@@ -17,6 +17,7 @@ use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
 
 class MasterController extends Controller
@@ -116,9 +117,10 @@ class MasterController extends Controller
         ini_set('memory_limit', -1);
         $param = $request->only('kantor_id', 'jenis', 'ruang');
         $param['fileName'] = $request->file('files')->getClientOriginalName();
-        Excel::import(new WarkahImport($param), request()->file('files'));
-
-        Warkah::whereNull('desa')->delete();
+        DB::beginTransaction();
+            Excel::import(new WarkahImport($param), request()->file('files'));
+            Warkah::whereNull('desa')->delete();
+        DB::commit();
 
         return 'Berhasil disimpan';
     }
