@@ -32,7 +32,6 @@ class WarkahImport implements ToModel, WithStartRow, SkipsOnError, SkipsOnFailur
             'baris' => isset($row[7]) ? $row[7] : null,
             'file_name' => $this->request['fileName'],
         ];
-        // dd($data);
         return new Warkah($data);
     }
 

@@ -118,6 +118,8 @@ class MasterController extends Controller
         $param['fileName'] = $request->file('files')->getClientOriginalName();
         Excel::import(new WarkahImport($param), request()->file('files'));
 
+        Warkah::whereNull('desa')->delete();
+
         return 'Berhasil disimpan';
     }
 
