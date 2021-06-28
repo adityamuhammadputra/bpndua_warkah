@@ -20,18 +20,20 @@ class WarkahImport implements ToModel, WithStartRow, SkipsOnError, SkipsOnFailur
 
     public function model(array $row)
     {
-        return new Warkah([
+        $data = [
             'kantor_id' => $this->request['kantor_id'],
             'jenis' => $this->request['jenis'],
-            'no_warkah' => $row[1],
-            'tahun' => $row[2],
-            'album' => $row[3],
-            'desa'  => "{$row[4]}, {$row[5]}" ,
+            'no_warkah' => isset($row[1]) ? $row[1] : null,
+            'tahun' => isset($row[2]) ? $row[2] : null,
+            'album' => isset($row[3]) ? $row[3] : null,
+            'desa'  => isset($row[4]) ? "{$row[4]}, {$row[5]}" : null,
             'ruang' => $this->request['ruang'],
-            'rak'   => $row[6],
-            'baris' => $row[7],
+            'rak'   => isset($row[6]) ? $row[6] : null,
+            'baris' => isset($row[7]) ? $row[7] : null,
             'file_name' => $this->request['fileName'],
-        ]);
+        ];
+        // dd($data);
+        return new Warkah($data);
     }
 
     public function startRow(): int

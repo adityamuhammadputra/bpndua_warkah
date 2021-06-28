@@ -392,7 +392,7 @@
                 },
                 error: function () {
                     alert('Terjadi kesalahan, silahkan muat ulang halaman');
-                    window.location.reload();
+                    // window.location.reload();
                 }
             })
             return false;
