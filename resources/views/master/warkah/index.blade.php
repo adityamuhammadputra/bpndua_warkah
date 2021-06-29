@@ -42,6 +42,7 @@
                     @foreach ($data->desa as $des)
                         <option value="{{ $des->name }}, {{ $des->kecamatan  }}">{{ $des->name }}, {{ $des->kecamatan  }}</option>
                     @endforeach
+                    <option value="99">-- Typo, Typo --</option>
                 </select>
             </div>
         </div>

@@ -49,6 +49,8 @@ class MasterController extends Controller
             'desa' => Desa::orderBy('name')->get(),
         ];
 
+        // return Desa::orderBy('name')->get();
+
         return view('master.warkah.index',compact('data'));
     }
 
@@ -195,7 +197,16 @@ class MasterController extends Controller
             }
 
             if($request->desa){
-                $data->where('desa', $request->desa);
+                if($request->desa == '99') {
+                    $queryDesa = DB::select("SELECT CONCAT(name,', ',kecamatan) as desa from desa");
+                    $desa = [];
+                    foreach($queryDesa as $key => $val) {
+                        $desa [] = $val->desa;
+                    }
+                    $data->whereNotIn('desa', $desa);
+                } else {
+                    $data->where('desa', $request->desa);
+                }
             }
 
             if($request->kantor){
