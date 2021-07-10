@@ -20,7 +20,10 @@ class PengembalianHistoryController extends Controller
 
     public function api(Request $request)
     {
-        $data = PeminjamanDetail::with('kegiatans','peminjamans')->where('status',4);
+        $data = PeminjamanDetail::with('kegiatans','peminjamans')
+                            ->where('kantor_id', userKantorId())
+                            ->where('status',4);
+
         if($request->kegiatan_id){
             $data->where('kegiatan_id', $request->kegiatan_id);
         }

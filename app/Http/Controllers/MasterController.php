@@ -189,8 +189,8 @@ class MasterController extends Controller
         if ($request->master == 'kegiatan') {
             $data = Kegiatan::query();
         } else if ($request->master == 'warkah') {
-            $data = Warkah::with('jenisWarkah');
-                        // ->where('kantor_id', userKantorId());
+            $data = Warkah::with('jenisWarkah')
+                            ->where('kantor_id', userKantorId());
 
             if($request->jenis){
                 $data->where('jenis', $request->jenis);
@@ -223,7 +223,7 @@ class MasterController extends Controller
                 }
             }
         } else {
-            $data = Pegawai::with('kegiatans');
+            $data = Pegawai::where('kantor_id', userKantorId())->with('kegiatans');
         }
 
         return DataTables::of($data)

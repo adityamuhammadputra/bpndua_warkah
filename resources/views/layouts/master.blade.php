@@ -48,9 +48,9 @@
                     <li class="{{ (request()->is('peminjaman/register')) ? 'active' : '' }}">
                         <a href="{{ url('peminjaman/register') }}"><span class="fa fa-laptop"></span> <span class="xn-text">Peminjaman Register</span></a>
                     </li>
-                    <li class="{{ (request()->is('peminjaman/validasi')) ? 'active' : '' }}">
+                    {{-- <li class="{{ (request()->is('peminjaman/validasi')) ? 'active' : '' }}">
                          <a href="{{ url('peminjaman/validasi') }}"><span class="fa fa-check-square-o"></span> <span class="xn-text">Peminjaman Validasi</span></a>
-                    </li>
+                    </li> --}}
                     @endif
                     <li class="{{ (request()->is('peminjaman/monitoring')) ? 'active' : '' }}">
                         <a href="{{ url('peminjaman/monitoring') }}"><span class="fa fa-search"></span> <span class="xn-text">Peminjaman Monitoring</span></a>

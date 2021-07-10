@@ -120,8 +120,14 @@
         </div>
         <div class="atasheader">
             <b class="tulisanpalingatas">BADAN PERTANAHAN NASIONAL - RI</b><br>
+            @if (userKantorId() == 1)
+            <b class="tulisanpalingatas">KANTOR PERTANAHAN KABUPATEN BOGOR</b>
+            <p style="padding-top: 0px;">Jl. Tegar Beriman, Pakansari, Kec. Cibinong, Kab. Bogor, Jawa Barat 16915</p>
+            @else
             <b class="tulisanpalingatas">PERWAKILAN KANTOR PERTANAHAN KABUPATEN BOGOR</b>
             <p style="padding-top: 0px;">Jl.Alternatif Cibubur No.6 Cileungsi, Kec.Cileungsi, Kab.Bogor, Jawa Barat 16820.</p>
+            @endif
+
         </div>
     </div>
     <div class="atasjudul">

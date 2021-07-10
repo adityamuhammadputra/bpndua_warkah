@@ -95,7 +95,7 @@
                             <div class="form-group">
                                 <label class="col-sm-4 control-label" for="nama_kegiatan">Album</label>
                                 <div class="col-sm-8">
-                                    <input type="number" name="album"  id="album" class="form-control" min="1" required>
+                                    <input type="text" name="album"  id="album" class="form-control" required>
                                 </div>
                             </div>
                             @if (isset($data))
@@ -302,7 +302,7 @@
                     $('.single').hide();
                     $('.multiple, .multiples').show();
                 } else {
-                    $('.modal-title').html('Tambah Peminjam');
+                    $('.modal-title').html('Tambah Peminjam ' + "{{ userKantorName() }}");
                     $('.kegiatan').remove();
                     $('.warkah').remove();
                 }
@@ -437,7 +437,7 @@
                     if(type == 'kegiatan'){
                         $('#nama_kegiatan').val(data.nama_kegiatan)
                         $('#batas_waktu').val(data.batas_waktu)
-                        $('.modal-title').html('Edit Kegaitan ' + data.nama_kegiatan);
+                        $('.modal-title').html('Edit Kegiatan ' + data.nama_kegiatan);
                         $('.peminjam').remove();
                         $('.warkah').remove();
                     } else if(type == 'warkah'){
@@ -462,7 +462,7 @@
                         $('#nama').val(data.nama)
                         $('#unit_kerja').val(data.unit_kerja)
                         $('#kegiatan_id').val(data.kegiatan_id).trigger('change');
-                        $('.modal-title').html('Edit Jenis Layanan');
+                        $('.modal-title').html('Edit Peminjam ' + "{{ userKantorName() }}");
                         $('.kegiatan').remove();
                         $('.warkah').remove();
                     }

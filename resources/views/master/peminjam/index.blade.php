@@ -1,7 +1,7 @@
 @extends('layouts.master')
 @section('level1', 'Master')
 @section('level2', 'Peminjam')
-@section('judul', 'Master Peminjam')
+@section('judul', 'Master Peminjam ' . userKantorName())
 @section('content')
 <table class="table table-hover table-striped table-borderless" style="width:100%" id="data">
     <thead>

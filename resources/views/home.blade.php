@@ -530,6 +530,7 @@
                     colReorder: true,
                     processing: true,
                     serverSide:true,
+                    deferLoading: 9,
                     ajax:{
                         "url" :urlTable,
                         "type" : "POST",

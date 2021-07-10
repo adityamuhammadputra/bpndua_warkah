@@ -45,3 +45,10 @@ function userKantorId()
     return Auth::user()->kantor_id;
 }
 
+function userKantorName()
+{
+    if(isset(Auth::user()->kantor))
+        return Auth::user()->kantor->name;
+    return 'x';
+}
+

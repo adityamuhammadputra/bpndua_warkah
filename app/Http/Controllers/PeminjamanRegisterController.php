@@ -149,13 +149,17 @@ class PeminjamanRegisterController extends Controller
     {
         Auth::user()->authorizeRoles(['admin']);
 
-        $data = PeminjamanDetail::find($id);
+        $peminjaman = Peminjaman::find($id);
+                        PeminjamanDetail::where('peminjaman_id', $peminjaman->id)
+                                    ->delete();
+
         $response = [
-            'message' => 'Data No hak ' .$data->no_hak. 'berhasil di Hapus!',
+            'message' => 'Data ' .$peminjaman->nama. ' berhasil di Hapus!',
             'table' => '#data-peminjaman',
-            'id' => '#'.$data->id,
+            'id' => '#'.$peminjaman->id,
         ];
-        $data->delete();
+
+        $peminjaman->delete();
         return $response;
     }
 
@@ -228,8 +232,12 @@ class PeminjamanRegisterController extends Controller
     {
         $query = $request->get('term','');
 
-        $dataptsl=Pegawai::where('nip','LIKE','%'.$query.'%')->orWhere('nama','LIKE','%'.$query.'%')->limit(20)->get();
-        $data=array();
+        $dataptsl=Pegawai::where('nama','LIKE','%'.$query.'%')
+                ->where('kantor_id', userKantorId())
+                ->limit(20)
+                ->get();
+
+        $data = [];
         foreach ($dataptsl as $d) {
                 $data[]=array('value'=>$d->nip.' || nama: '.$d->nama.' || Unit Kerja: '.$d->unit_kerja, 'id'=>$d->nip);
         }
@@ -262,10 +270,10 @@ class PeminjamanRegisterController extends Controller
 
         return Datatables::of($data)
             ->addColumn('action',function($data){
-                return ' <span class="label label-danger label-borok">' . $data->jumlahpinjam . '</span><a class ="btn btn-info btn-sm alertshow" id="'.$data->id.'" data-id="'.$data->id.'" data-judul="Peminjaman '.$data->nama.'" data-head="Cetak dan Validasi ke Peminjaman Validasi" data-type="Cetak"><em class="fa fa-print">
-                        </em> </a>' .
-                       ' <a class ="btn btn-warning btn-sm alertshow" id="'.$data->id.'" data-id="'.$data->id.'" data-judul="Peminjaman '.$data->nama.'" data-head="mengirim ke Pengembalian Validasi" data-type="Validasi"><em class="fa fa-rocket"></em> </a>'.
-                        ' <a onclick="edit('.$data->id .')" class ="btn btn-primary btn-sm"><i class="fa fa-pencil-square-o"></i> </a>';
+                return '<span class="label label-danger label-borok">' . $data->jumlahpinjam . '</span><a class ="btn btn-warning btn-sm alertshow" id="'.$data->id.'" data-id="'.$data->id.'" data-judul="Peminjaman '.$data->nama.'" data-head="mengirim ke Pengembalian Validasi" data-type="Validasi"><em class="fa fa-rocket"></em> </a>'.
+                        ' <a onclick="edit(' . $data->id . ')" class ="btn btn-primary btn-sm"><i class="fa fa-pencil-square-o"></i> </a>'.
+                        ' <a class ="btn btn-danger btn-sm alertshow" id="' . $data->id . '" data-id="' . $data->id . '" data-judul="Peminjaman ' . $data->nama . '" data-head="batalkan Peminjaman " data-type="Hapus"><em class="fa fa-times">
+                        </em> </a>';
             })->rawColumns(['action'])->make(true);
     }
 
