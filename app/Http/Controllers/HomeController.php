@@ -50,27 +50,28 @@ class HomeController extends Controller
             ];
         endforeach;
 
-        $dashboard1 = Kegiatan::with('peminjamandetails')->whereIn('id', ['1','2','3','4','5','6','7','8'])->get();
-        $dashboard2 = Kegiatan::with('peminjamandetails')->whereIn('id', ['9','10','11','12','13','14','15','16'])->get();
-        $dashboard3 = Kegiatan::with('peminjamandetails')->whereIn('id', ['17','18','19', '20', '21', '22', '23','25'])->get();
 
         $grafik = DB::select(DB::raw('SELECT a.nama_kegiatan as label, COUNT(b.kegiatan_id) as y, a.id as id FROM master_kegiatan a
                                     LEFT JOIN peminjaman_detail b
                                     ON a.id = b.kegiatan_id
                                     GROUP BY a.nama_kegiatan'));
 
+
+        $grafikTahun = DB::select(DB::raw("SELECT SUBSTRING(no_warkah, -4) AS label, COUNT(SUBSTRING(no_warkah, -4)) AS y, SUBSTRING(no_warkah, -4) AS id FROM peminjaman_detail
+                                    GROUP BY SUBSTRING(no_warkah, -4)
+                                    ORDER BY SUBSTRING(no_warkah, -4) ASC"));
+
+        $grafikJenis = DB::select("SELECT jenis AS label, COUNT(jenis) AS y FROM peminjaman_detail
+                                    GROUP BY jenis
+                                    ORDER BY jenis ASC");
+
         $data = [
             'peminjamanJenis' => $peminjamanJenis,
             'peminjaman' => $data_pinjam,
             'pengembalian' => $data_kembali,
-            'dashboard' => [
-                'dashboard1' => $dashboard1,
-                'dashboard2' => $dashboard2,
-                'dashboard3' => $dashboard3,
-            ]
         ];
 
-        return view('home', compact('data','grafik'));
+        return view('home', compact('data','grafik', 'grafikTahun', 'grafikJenis'));
     }
 
     public function detailpinjam($id)

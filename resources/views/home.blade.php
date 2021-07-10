@@ -241,11 +241,11 @@
     </div>
 
     <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-8">
             <div class="panel panel-default">
                 <div class="panel-heading ui-draggable-handle">
                     <div class="panel-title-box">
-                        <h3>Dashboard 1</h3>
+                        <h3>Input Warkah Pertahun</h3>
                     </div>
                     <ul class="panel-controls" style="margin-top: 2px;">
                         <li><a href="#" class="panel-fullscreen"><span class="fa fa-expand"></span></a></li>
@@ -260,26 +260,7 @@
                     </ul>
                 </div>
                 <div class="panel-body panel-body-table">
-                    <div class="table-responsive">
-                        <table class="table table-bordered table-striped">
-                            <thead>
-                                <tr>
-                                    <th width="40%">Jenis Layanan</th>
-                                    <th width="30%" class="text-center">Peminjaman</th>
-                                    <th width="30%" class="text-center">Pengembalian</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($data['dashboard']['dashboard1'] as $val)
-                                    <tr>
-                                        <td><strong>{{ $val->nama_kegiatan }}</strong></td>
-                                        <td class="text-center"><a class="detailpinjam" data-jenis="peminjaman" data-kegiatanid="{{ $val->id }}" data-status="3" data-nama_kegiatan="Peminjaman {{ $val->nama_kegiatan }}" data-labelfilter="Tanggal Pinjam"><span class="label label-danger">{{ $val->totalpinjam }}</a></span></td>
-                                        <td class="text-center"><a class="detailpinjam" data-jenis="pengembalian" data-kegiatanid="{{ $val->id }}" data-status="4" data-nama_kegiatan="Pengembalian {{ $val->nama_kegiatan }}" data-labelfilter="Tanggal Kembali"><span class="label label-warning">{{ $val->totalkembali }}</a></span></td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
+                    <div id="chartContainerTahun" style="height: 300px; width: 100%;"></div>
                 </div>
             </div>
         </div>
@@ -287,7 +268,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading ui-draggable-handle">
                     <div class="panel-title-box">
-                        <h3>Dashboard 2</h3>
+                        <h3>Input Warkah Perjenis</h3>
                     </div>
                     <ul class="panel-controls" style="margin-top: 2px;">
                         <li><a href="#" class="panel-fullscreen"><span class="fa fa-expand"></span></a></li>
@@ -302,88 +283,27 @@
                     </ul>
                 </div>
                 <div class="panel-body panel-body-table">
-                    <div class="table-responsive">
-                        <table class="table table-bordered table-striped">
-                            <thead>
-                                <tr>
-                                    <th width="40%">Jenis Layanan</th>
-                                    <th width="30%" class="text-center">Peminjaman</th>
-                                    <th width="30%" class="text-center">Pengembalian</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($data['dashboard']['dashboard2'] as $val)
-                                    <tr>
-                                        <td><strong>{{ $val->nama_kegiatan }}</strong></td>
-                                        <td class="text-center"><a class="detailpinjam"  data-jenis="peminjaman" data-kegiatanid="{{ $val->id }}" data-status="3" data-nama_kegiatan="Peminjaman {{ $val->nama_kegiatan }}" data-labelfilter="Tanggal Pinjam"><span class="label label-danger">{{ $val->totalpinjam }}</a></span></td>
-                                        <td class="text-center"><a class="detailpinjam" data-jenis="pengembalian" data-kegiatanid="{{ $val->id }}" data-status="4" data-nama_kegiatan="Pengembalian {{ $val->nama_kegiatan }}" data-labelfilter="Tanggal Kembali"><span class="label label-warning">{{ $val->totalkembali }}</a></span></td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="panel panel-default">
-                <div class="panel-heading ui-draggable-handle">
-                    <div class="panel-title-box">
-                        <h3>Dashboard 3</h3>
-                    </div>
-                    <ul class="panel-controls" style="margin-top: 2px;">
-                        <li><a href="#" class="panel-fullscreen"><span class="fa fa-expand"></span></a></li>
-                        <li><a href="#" class="panel-refresh"><span class="fa fa-refresh"></span></a></li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="fa fa-cog"></span></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="#" class="panel-collapse"><span class="fa fa-angle-down"></span> Collapse</a></li>
-                                <li><a href="#" class="panel-remove"><span class="fa fa-times"></span> Remove</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
-                <div class="panel-body panel-body-table">
-                    <div class="table-responsive">
-                        <table class="table table-bordered table-striped">
-                            <thead>
-                                <tr>
-                                    <th width="40%">Jenis Layanan</th>
-                                    <th width="30%" class="text-center">Peminjaman</th>
-                                    <th width="30%" class="text-center">Pengembalian</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($data['dashboard']['dashboard3'] as $val)
-                                    <tr>
-                                        <td><strong>{{ $val->nama_kegiatan }}</strong></td>
-                                        <td class="text-center"><a class="detailpinjam" data-jenis="peminjaman" data-kegiatanid="{{ $val->id }}" data-status="3" data-nama_kegiatan="Peminjaman {{ $val->nama_kegiatan }}" data-labelfilter="Tanggal Pinjam"><span class="label label-danger">{{ $val->totalpinjam }}</a></span></td>
-                                        <td class="text-center"><a class="detailpinjam" data-jenis="pengembalian" data-kegiatanid="{{ $val->id }}" data-status="4" data-nama_kegiatan="Pengembalian {{ $val->nama_kegiatan }}" data-labelfilter="Tanggal Kembali"><span class="label label-warning">{{ $val->totalkembali }}</a></span></td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
+                    <div id="chartContainerJenis" style="height: 300px; width: 100%;"></div>
                 </div>
             </div>
         </div>
     </div>
 <style>
-.no-js #loader { display: none;  }
-.js #loader { display: block; position: absolute; left: 100px; top: 0; }
-.gifLoading {
-	position: absolute;
-	left: 0px;
-	top: 0px;
-    width: 100%;
-    height: 100%;
-	z-index: 9999;
-	background: url(load.gif) center no-repeat #fff;
-}
+    .no-js #loader { display: none;  }
+    .js #loader { display: block; position: absolute; left: 100px; top: 0; }
+    .gifLoading {
+        position: absolute;
+        left: 0px;
+        top: 0px;
+        width: 100%;
+        height: 100%;
+        z-index: 9999;
+        background: url(load.gif) center no-repeat #fff;
+    }
 
-.sorting_disabled {
-    padding-right: 0 !important;
-}
+    .sorting_disabled {
+        padding-right: 0 !important;
+    }
 </style>
 <div class="modal" id="modal_large" tabindex="-1" role="dialog" aria-labelledby="largeModalHead" aria-hidden="true">
     <div class="modal-dialog modal-lg">
@@ -588,26 +508,76 @@
 
 window.onload = function () {
 
-var chart = new CanvasJS.Chart("chartContainer", {
-	animationEnabled: true,
-	exportEnabled: true,
-    height: 300,
-    theme: "light1", // "light1", "light2", "dark1", "dark2"
-	data: [{
-		type: "area", //change type to bar, line, area, pie, etc
-		//indexLabel: "{y}", //Shows y value on all Data Points
-		indexLabelFontColor: "#5A5757",
-		indexLabelPlacement: "outside",
-        dataPoints: <?php echo json_encode($grafik, JSON_NUMERIC_CHECK); ?>,
-        click: function(e){
-            // console.log(e.dataPoint.label + e.dataPoint.id + e.dataPoint.id)
-            newUrl  = "{{ url('api/modaldashboard') }}?kegiatan_id=" + kegiatan_id + "&status=" + status;
-            detailPinjam (jenis_kegiatan = null, kegiatan_id = e.dataPoint.id, status = null, e.dataPoint.label, newUrl, dashboad = true)
+    var chart = new CanvasJS.Chart("chartContainer", {
+        animationEnabled: true,
+        exportEnabled: true,
+        height: 300,
+        theme: "light1", // "light1", "light2", "dark1", "dark2"
+        data: [{
+            type: "area", //change type to bar, line, area, pie, etc
+            //indexLabel: "{y}", //Shows y value on all Data Points
+            indexLabelFontColor: "#5A5757",
+            indexLabelPlacement: "outside",
+            dataPoints: <?php echo json_encode($grafik, JSON_NUMERIC_CHECK); ?>,
+            click: function(e){
+                // console.log(e.dataPoint.label + e.dataPoint.id + e.dataPoint.id)
+                newUrl  = "{{ url('api/modaldashboard') }}?kegiatan_id=" + kegiatan_id + "&status=" + status;
+                detailPinjam (jenis_kegiatan = null, kegiatan_id = e.dataPoint.id, status = null, e.dataPoint.label, newUrl, dashboad = true)
 
-        }
-	}]
-});
-chart.render();
+            }
+        }]
+    });
+    chart.render();
+
+
+    var chartTahun = new CanvasJS.Chart("chartContainerTahun", {
+        animationEnabled: true,
+        exportEnabled: true,
+        height: 300,
+        axisY:{
+            interval: 1
+        },
+        theme: "light2", // "light1", "light2", "dark1", "dark2"
+        data: [{
+            type: "bar", //change type to bar, line, area, pie, etc
+            // indexLabel: "{y}", //Shows y value on all Data Points
+            indexLabelFontColor: "#5A5757",
+            indexLabelPlacement: "outside",
+            // axisYType: "secondary",
+            dataPoints: <?php echo json_encode($grafikTahun, JSON_NUMERIC_CHECK); ?>,
+            click: function(e){
+                console.log(e.dataPoint.label + e.dataPoint.id + e.dataPoint.id)
+                newUrl  = "{{ url('api/modaldashboard') }}?kegiatan_id=" + kegiatan_id + "&status=" + status;
+                detailPinjam (jenis_kegiatan = null, kegiatan_id = e.dataPoint.label, status = null, e.dataPoint.label, newUrl, dashboad = true)
+
+            }
+        }]
+    });
+    chartTahun.render();
+
+
+    var chartJenis = new CanvasJS.Chart("chartContainerJenis", {
+        animationEnabled: true,
+        exportEnabled: true,
+        height: 300,
+        theme: "light1", // "light1", "light2", "dark1", "dark2"
+        data: [{
+            type: "pie", //change type to bar, line, area, pie, etc
+            // indexLabel: "{y}", //Shows y value on all Data Points
+            indexLabelFontColor: "#5A5757",
+            indexLabelPlacement: "outside",
+            dataPoints: <?php echo json_encode($grafikJenis, JSON_NUMERIC_CHECK); ?>,
+            click: function(e){
+                console.log(e.dataPoint.label + e.dataPoint.id + e.dataPoint.id)
+                newUrl  = "{{ url('api/modaldashboard') }}?kegiatan_id=" + kegiatan_id + "&status=" + status;
+                detailPinjam (jenis_kegiatan = null, kegiatan_id = e.dataPoint.label, status = null, e.dataPoint.label, newUrl, dashboad = true)
+
+            }
+        }]
+    });
+    chartJenis.render();
+
+
 
 }
 
