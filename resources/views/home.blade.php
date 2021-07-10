@@ -534,9 +534,9 @@ window.onload = function () {
         animationEnabled: true,
         exportEnabled: true,
         height: 300,
-        axisY:{
-            interval: 1
-        },
+        // axisY:{
+        //     interval: 1
+        // },
         theme: "light2", // "light1", "light2", "dark1", "dark2"
         data: [{
             type: "bar", //change type to bar, line, area, pie, etc

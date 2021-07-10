@@ -57,13 +57,15 @@ class HomeController extends Controller
                                     GROUP BY a.nama_kegiatan'));
 
 
-        $grafikTahun = DB::select(DB::raw("SELECT SUBSTRING(no_warkah, -4) AS label, COUNT(SUBSTRING(no_warkah, -4)) AS y, SUBSTRING(no_warkah, -4) AS id FROM peminjaman_detail
-                                    GROUP BY SUBSTRING(no_warkah, -4)
-                                    ORDER BY SUBSTRING(no_warkah, -4) ASC"));
+        $grafikTahun = DB::select(DB::raw("SELECT tahun AS label, COUNT(tahun) AS y FROM master_warkah
+                                    GROUP BY tahun
+                                    ORDER BY tahun ASC"));
 
-        $grafikJenis = DB::select("SELECT jenis AS label, COUNT(jenis) AS y FROM peminjaman_detail
-                                    GROUP BY jenis
-                                    ORDER BY jenis ASC");
+        $grafikJenis = DB::select(DB::raw("SELECT b.name AS label, COUNT(a.jenis) y
+                                FROM master_warkah a
+                                LEFT JOIN master_jenis_warkah b
+                                    ON b.id = a.jenis
+                                GROUP BY b.name"));
 
         $data = [
             'peminjamanJenis' => $peminjamanJenis,
