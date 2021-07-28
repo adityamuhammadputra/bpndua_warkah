@@ -35,8 +35,8 @@
 
             </div>
             <div class="form-group">
-                <label for="passwordagain" class="control-label">Jabatan</label>
-                <input type="text" name="jabatan" id="jabatan" class="form-control">
+                <label for="passwordagain" class="control-label">Kantor</label>
+                <input type="text" name="jabatan" id="jabatan" class="form-control" readonly>
             </div>
         </div>
     </div>

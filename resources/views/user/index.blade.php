@@ -14,7 +14,7 @@
                     <th style="width:1px;">No.</th>
                     <th>Nama</th>
                     <th>Username</th>
-                    <th>Profile</th>
+                    <th>Kantor</th>
                     <th>Akses</th>
                     <th>photo</th>
                     <th></th>

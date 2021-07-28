@@ -131,11 +131,15 @@ class UserController extends Controller
                 return $roles;
             })
             ->addColumn('action', function ($user) {
+                if($user->id == userId())
+                    return ' <a onclick="editForm(' . $user->id . ')" class ="btn btn-primary btn-sm"><i class="glyphicon glyphicon-edit">
+                            </i> Edit </a>';
+                else
+                    return ' <a class ="btn btn-primary btn-sm" disabled><i class="glyphicon glyphicon-edit">
+                            </i> Edit </a>';
 
-                return ' <a onclick="editForm(' . $user->id . ')" class ="btn btn-primary btn-sm"><i class="glyphicon glyphicon-edit">
-                        </i> Edit </a>' .
-                    ' <a onclick="deleteData(' . $user->id . ')" class ="btn btn-danger btn-sm"><i class="glyphicon glyphicon-trash">
-                        </i> Delete </a>';
+                    // ' <a onclick="deleteData(' . $user->id . ')" class ="btn btn-danger btn-sm"><i class="glyphicon glyphicon-trash">
+                        // </i> Delete </a>';
             })->rawColumns(['show_photo', 'action', 'akses'])->make(true);
     }
 

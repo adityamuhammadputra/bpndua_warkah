@@ -555,7 +555,6 @@ window.onload = function () {
     });
     chartTahun.render();
 
-
     var chartJenis = new CanvasJS.Chart("chartContainerJenis", {
         animationEnabled: true,
         exportEnabled: true,

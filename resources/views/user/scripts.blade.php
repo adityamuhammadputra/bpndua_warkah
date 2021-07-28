@@ -11,8 +11,8 @@
     $('#form-user').on('submit', function (e) {
         var url, id = $('#id').val();
         e.preventDefault();
-        if(id == '') url = "{{ url('user') }}";
-        else url = "{{ url('user') }}/" + id;
+        if(id == '') url = "{{ url('users') }}";
+        else url = "{{ url('users') }}/" + id;
         $.ajax({
             url:url,
             type:'POST',
@@ -131,7 +131,7 @@ function editForm(id) {
     $('input[name=_method]').val('PATCH');
     $('#form-user')[0].reset();
     $.ajax({
-        url: "{{ url('user')}}/" + id + "/edit", //menampilkan data dari controller edit
+        url: "{{ url('users')}}/" + id + "/edit", //menampilkan data dari controller edit
         type: "GET",
         dataType: "JSON",
         success: function (data) {
@@ -164,7 +164,7 @@ function editForm(id) {
 function deleteData(id) {
     $.ajax({
         type:'DELETE',
-        url:"{{ url('user') }}/" + id,
+        url:"{{ url('users') }}/" + id,
         success: function(data){
             toastr["success"]('User berhasil dihapus')
             $('#data-user').dataTable().api().ajax.reload()
