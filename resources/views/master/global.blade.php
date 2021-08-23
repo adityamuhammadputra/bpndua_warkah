@@ -316,6 +316,10 @@
 
 
         let cekWarkah = (url) => {
+            submitData(url)
+            $('.btn-kirim').attr('disabled', false)
+            return false;
+            //disable sama
             $.ajax({
                 url: '/api/check-warkah',
                 type:'GET',
