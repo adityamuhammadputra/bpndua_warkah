@@ -277,10 +277,8 @@
             $('.multiples').append(html);
         })
         $(document).on('click', '.removeRow', function(){
-            $(this).closest('.form-group').hide('slow');
+            $(this).closest('.form-group').remove();
         })
-
-
 
         $(document).ready(function () {
             $('.select2').select2();
