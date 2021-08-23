@@ -269,13 +269,18 @@
                                 <input type="text" placeholder="Nomor Warkah" id="no_warkah_multi" name="no_warkah_multi[]" class="form-control" required>\
                             </div>\
                             <div class="col-sm-1">\
-                                <button type="button" class="btn btn-sm bnt-primary newRow" style="padding-right: 0px;">\
+                                <button type="button" class="btn btn-sm bnt-primary removeRow" style="padding-right: 0px;">\
                                     <i class="fa fa-minus"></i>\
                                 </button>\
                             </div>\
                         </div>';
             $('.multiples').append(html);
         })
+        $(document).on('click', '.removeRow', function(){
+            $(this).closest('.form-group').hide('slow');
+        })
+
+
 
         $(document).ready(function () {
             $('.select2').select2();
